@@ -1,0 +1,18 @@
+{
+  "name": "IPDP",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "mongodb": "^6.14.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.13.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "private": true
+}
