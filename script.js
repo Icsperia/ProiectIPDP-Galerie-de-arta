@@ -43,6 +43,7 @@ function showArtists() {
     submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
 }
 
+
 function accountData() {
     let submenu = document.getElementById("accounts");
     submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
