@@ -24,7 +24,7 @@ db.connect((err) => {
 });
 // Routes
 app.get('/api/users', (req, res) => {
-    db.query('SELECT * FROM users', (err, results) => {
+    db.query('SELECT * FROM user', (err, results) => {
         if (err) {
             console.error('Error executing query: ' + err.stack);
             res.status(500).send('Error fetching users');
@@ -40,7 +40,7 @@ app.listen(PORT, () => {
 
 app.post('/api/users', (req, res) => {
     const { username } = req.body;
-    db.query('INSERT INTO artist (name) VALUES (?)', [username], (err) => {
+    db.query('INSERT INTO user (id_user, email, password, first_name, last_name, user_name) VALUES (?,?,?,?,?,?)', [username], (err) => {
         if (err) {
             console.error('Error executing query: ' + err.stack);
             res.status(400).send('Error creating user');
