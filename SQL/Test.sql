@@ -49,4 +49,17 @@
     FOREIGN KEY (id_art) REFERENCES art(id_art) ON DELETE CASCADE
     );
     
-
+   
+    CREATE TABLE drawings(
+    id_drawings INT PRIMARY KEY AUTO_INCREMENT,
+    id_art INT,
+    sale_price DECIMAL(10,2),
+    FOREIGN KEY (id_art) REFERENCES art(id_art) ON DELETE CASCADE
+    );
+    
+    CREATE TABLE random_drawings(
+    id_random_drawings INT PRIMARY KEY AUTO_INCREMENT,
+    id_art INT,
+    sale_price DECIMAL(10,2),
+    FOREIGN KEY (id_art) REFERENCES art(id_art) ON DELETE CASCADE
+    );
