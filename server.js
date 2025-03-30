@@ -3,6 +3,10 @@ const path = require('path');
 
 const app = express();
 
+
+
+
+
 // Serve static files from 'ProiectIPDP-Galerie-de-arta'
 app.use(express.static(path.join(__dirname, 'src')));
 
