@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="logo">
+    </div>
+
+    <a href="about.html" onclick="showContent('about')">About</a>
+    <div class="dropdown">
+        <a href="art.html">Arts</a>
+        <div class="submenu">
+            <a href="portraits.html" onclick="arts_menu('portraits')">Pencil portraits</a>
+            <a href="acrylic.html" onclick="arts_menu('acrylic')">Acrylic paintings</a>
+            <a href="watercolor.html" onclick="arts_menu('watercolor')">Watercolor paintings</a>
+            <a href="draw.html" onclick="arts_menu('draw')">Drawings</a>
+            <a href="random_draw.html" onclick="arts_menu('random_draw')">Random drawings</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <a href="artists.html">Artists</a>
+        <div class="submenu">
+            <a href="bia.html" onclick="artist_menu('Husu Bianca')">Artist 1</a>
+            <a href="georgi.html" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
+            <a href="marian.html" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
+        </div>
+    </div>
+    <a href="reacts.html" onclick="showContent('reacts')">Reacts</a>
+    <a href="ai_art.html" onclick="showContent('ai')">AI Art</a>
+    <div class="dropdown">
+        <a href="#">Account</a>
+        <div class="submenu">
+            <a href="#" onclick="account_menu('log_in')">Log in</a>
+            <a href="#" onclick="account_menu('sing_in')">Sign in</a>
+            <a href="#" onclick="account_menu('condition')">Conditions</a>
+        </div>
+    </div>
+</div>
+
+<div id="main">
+    <h1 id="pageTitle">RANDOM STUFF</h1>
+    <div id="productList"></div>
+    <div class="cart" onclick="showCart()">Cart (<span id="cart_count">0</span>)</div>
+</div>
+<div id="product_details" style="display: none;">
+    <h2 id="detailName"></h2>
+    <div class="image_container">
+        <span class="arrow left" onclick="prevImage()">&#9664;</span>
+        <img id="detailImage" width="300">
+        <span class="arrow right" onclick="nextImage()">&#9654;</span>
+    </div>
+    <div id="thumbnailContainer" class="thumbnail_container"></div>
+    <p id="detailPrice"></p>
+    <button class="addCart" onclick="addToCart()">Add to cart</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+    displayProducts(random_products);
+</script>
+</body>
+</html>
