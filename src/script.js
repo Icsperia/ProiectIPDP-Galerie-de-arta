@@ -87,3 +87,35 @@ function account_menu(page) {
             content.innerText = "Principal page";
     }
 }
+
+
+/*fetch(`/images?id=${imageId}`)
+    .then(response => {
+        console.log("Raw response:", response);
+        if (!response.ok) {
+            throw new Error('Image not found or there was an error');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Parsed JSON data:", data);
+        if (!data.imagePath) {
+            throw new Error('The image path is not valid');
+        }
+
+        const container = document.querySelector('.imageContainer');
+        container.innerHTML = '';  // Clear previous images
+
+        const img = document.createElement('img');
+        img.src = data.imagePath;  // Use the image path from the response
+        img.alt = `Image with ID ${imageId}`;
+        img.classList.add('product-image');
+
+        container.appendChild(img);
+    })
+    .catch(error => {
+        console.error('Error loading image:', error.message);
+        const container = document.querySelector('.imageContainer');
+        container.innerHTML = 'We could not load the image.';
+    });
+*/
