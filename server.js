@@ -6,6 +6,8 @@ const app = express();
 
 
 
+// Servește fișiere statice din directorul 'src/images'
+app.use('/images', express.static('src/images'));
 
 // Serve static files from 'ProiectIPDP-Galerie-de-arta'
 app.use(express.static(path.join(__dirname, 'src')));
@@ -15,7 +17,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,  'index.html'));
 
 });
-
+app.get('/test-image', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/images/acrylic_river.jpg'));
+});
 
 app.use(express.static(path.join(__dirname, 'pagini_html')));
 
@@ -42,4 +46,4 @@ app.use((req, res) => {
 });
 
 // Start the server
-app.listen(3030, () => console.log('Server started on port 3030'));
+app.listen(3030, () => console.log('Server started on port 3000'));
