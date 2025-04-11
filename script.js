@@ -123,7 +123,7 @@ const acrylic_products = [
     {
         id: 4,
         name: "Forest",
-        description: "In the forest with deep green trees in the back is a old wooden cabin see in the right, from beside her come a turbulent river at speed and breaks into a cascade on the rooks. In the left side are three deer and one little roe deer ",
+        description: "In the forest with deep green trees in the back is a old wooden cabin see in the right, from beside her come a turbulent river with speed and breaks into a cascade on the rooks. In the left side are three deer and one little roe deer who looks in the forest. ",
         images: [
             "desene\\acrylic\\acrylic_forest.jpg",
             "desene\\acrylic\\acrylic_forest1.jpg",
@@ -133,8 +133,8 @@ const acrylic_products = [
     },
     {
         id: 5,
-        name: "Cascade",
-        description: "Mountain-themed cascade painting",
+        name: "Mountain",
+        description: "In a sunrise atmosphere, a hight peak of a mountain with the clouds saround him. Come from altitude in front of us. Little dirty withe flowers at the bottom",
         images: [
             "desene\\acrylic\\acrylic_mountain.jpg",
             "desene\\acrylic\\acrylic_mountain1.jpg",
@@ -397,7 +397,7 @@ function displayProducts(products) {
         var description = document.createElement("p");
         description.innerText = product.description || "";
 
-        var price = document.createElement("p");
+        var price = document.createElement("price");
         price.innerText = "Price: " + product.price + " euro";
 
         var addButton = document.createElement("button");
