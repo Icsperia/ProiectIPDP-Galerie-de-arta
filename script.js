@@ -397,7 +397,7 @@ function displayProducts(products) {
         var description = document.createElement("p");
         description.innerText = product.description || "";
 
-        var price = document.createElement("price");
+        var price = document.createElement("p");
         price.innerText = "Price: " + product.price + " euro";
 
         var addButton = document.createElement("button");
