@@ -6,15 +6,16 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3030;
 
+// Set EJS as view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // views folder
+
 // Middleware
 app.use(bodyParser.json());
 
-// Serve static files
+// Static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'src')));
-app.use(express.static(path.join(__dirname, 'pagini_html')));
-/*app.use('', express.static(path.join(__dirname, 'images')));
-app.use('', express.static('images'));
-*/
+
 // Database connection
 const db = mysql.createConnection({
     host: '192.168.10.130',
@@ -32,41 +33,52 @@ db.connect((err) => {
 });
 
 
-// Serve homepage
+// Home page (was res.sendFile)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.render('index', { title: 'Acasă' });
 });
 
-// Test image route (optional debug)
-app.get('/test-image', (req, res) => {
-    res.sendFile(path.join(__dirname, 'acrylic_miru.jpg'));
+// Example EJS routes for pages (optional dynamic content)
+app.get('/about', (req, res) => {
+    res.render('pages/about', { title: 'Despre noi' });
 });
 
-// Image by ID endpoint
+app.get('/acrylic', (req, res) => {
+    res.render('pages/acrylic', { title: 'Picturi Acrilice' });
+});
+// Dynamic image from DB
 app.get('/images', (req, res) => {
     const id = req.query.id;
 
-
-    db.query('SELECT locatie FROM acrylic_paintings WHERE id_acrylic_paintings = ?', [id], (err, results) => {
-        if (err) {
-            console.error('Error querying database:', err);
-            return res.status(500).send('Error fetching image');
-        }
-
-
-        const imagePath = results[0].locatie;
-        const fullImagePath = path.join(__dirname, 'src', 'images', imagePath);
-
-        res.sendFile(fullImagePath, (err) => {
+    db.query(
+        'SELECT locatie FROM acrylic_paintings WHERE id_acrylic_paintings = ?',
+        [id],
+        (err, results) => {
             if (err) {
-                console.error('Error sending file:', err);
-                res.status(500).send('Error sending image');
+                console.error('Error querying database:', err);
+                return res.status(500).send('Error fetching image');
             }
-        });
-    });
+
+            if (!results || results.length === 0) {
+                console.warn(`No painting found with ID: ${id}`);
+                return res.status(404).send('Image not found');
+            }
+
+            const imagePath = results[0].locatie;
+            const fullImagePath = path.join(__dirname, 'src', 'images', imagePath);
+
+            res.sendFile(fullImagePath, (err) => {
+                if (err) {
+                    console.error('Error sending file:', err);
+                    res.status(500).send('Error sending image');
+                }
+            });
+        }
+    );
 });
 
-// Users endpoints (optional, if needed)
+
+// Users API
 app.get('/api/users', (req, res) => {
     db.query('SELECT * FROM user', (err, results) => {
         if (err) {
@@ -108,14 +120,10 @@ app.patch('/api/users/:id', (req, res) => {
 });
 
 
+// 404 Page
 
-// Catch-all 404
-app.use((req, res) => {
-    res.status(404).send('<h1>Not Found</h1>');
-});
 
-// Start the server ONCE
+// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-db.query("Insert into acrylic_paintings(locatie) values('acrylic-river.png')")

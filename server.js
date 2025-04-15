@@ -14,13 +14,9 @@ app.use(express.static(path.join(__dirname, 'src')));
 
 // Serve the main HTML file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,  'index.html'));
+    res.sendFile(path.join(__dirname,  'index.ejs'));
 
 });
-app.get('/test-image', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/images/acrylic_river.jpg'));
-});
-
 app.use(express.static(path.join(__dirname, 'pagini_html')));
 
 // Serve the main HTML file

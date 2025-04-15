@@ -70,10 +70,11 @@ app.get('/image', (req, res) => {
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.ejs'));
 });
 
 // Handle 404 errors
+
 app.use((req, res) => {
     res.status(404).send('<h1>Not Found</h1>');
 });
