@@ -4,41 +4,41 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
 <div class="navbar">
     <div class="logo">
-        <img src="logo5-removebg-preview.png" alt="logo">
+        <img src="logo.png" alt="logo">
     </div>
 
-    <a href="about.ejs onclick="showContent('about')">About</a>
+    <a href="/about" onclick="showContent('about')">About</a>
     <div class="dropdown">
-        <a href="art.ejs">Arts</a>
+        <a href="/art">Arts</a>
         <div class="submenu">
-            <a href="portraits.ejs" onclick="arts_menu('portraits')">Pencil portraits</a>
-            <a href="acrylic.ejs" onclick="arts_menu('acrylic')">Acrylic paintings</a>
-            <a href="watercolor.ejs" onclick="arts_menu('watercolor')">Watercolor paintings</a>
-            <a href="draw.ejs" onclick="arts_menu('draw')">Drawings</a>
-            <a href="random_draw.ejs" onclick="arts_menu('random_draw')">Random drawings</a>
+            <a href="/portraits" onclick="arts_menu('portraits')">Pencil portraits</a>
+            <a href="/acrylic" onclick="arts_menu('acrylic')">Acrylic paintings</a>
+            <a href="/watercolor" onclick="arts_menu('watercolor')">Watercolor paintings</a>
+            <a href="/draw" onclick="arts_menu('draw')">Drawings</a>
+            <a href="/random_draw" onclick="arts_menu('random_draw')">Random drawings</a>
         </div>
     </div>
     <div class="dropdown">
-        <a href="artists.ejs">Artists</a>
+        <a href="/artists">Artists</a>
         <div class="submenu">
-            <a href="bia.ejs" onclick="artist_menu('Husu Bianca')">Artist 1</a>
-            <a href="georgi.ejs" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
-            <a href="marian.ejs" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
+            <a href="/bia" onclick="artist_menu('Husu Bianca')">Artist 1</a>
+            <a href="/georgi" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
+            <a href="/marian" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
         </div>
     </div>
-    <a href="reacts.ejs" onclick="showContent('reacts')">Reacts</a>
-    <a href="ai_art.ejs" onclick="showContent('ai')">AI Art</a>
+    <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
+    <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
     <div class="dropdown">
         <a href="#">Account</a>
         <div class="submenu">
-            <a href="#" onclick="account_menu('log_in')">Log in</a>
-            <a href="#" onclick="account_menu('sing_in')">Sign in</a>
+            <a window.location.href="/register" onclick="account_menu('register')">Register</a>
+
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
     </div>
@@ -50,5 +50,6 @@
 </div>
 
 <script src="script.js"></script>
+<script src="/routes/authentication.js"></script>
 </body>
 </html>
