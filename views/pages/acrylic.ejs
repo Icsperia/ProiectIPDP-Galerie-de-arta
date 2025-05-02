@@ -1,85 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title></title>
+    <title>Acrylic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
 <div class="navbar">
     <div class="logo">
-        <img src="logo5-removebg-preview.png" alt="logo">
+        <img src="logo.png" alt="logo">
     </div>
-
-    <div class="cart" onclick="showCart()">Cart (<span id="cart_count">0</span></div>
-
-    <a href="about.ejs" onclick="showContent('about')">About</a>
+    <a href="/about" onclick="showContent('about')">About</a>
     <div class="dropdown">
-        <a href="art.ejs">Arts</a>
+        <a href="/art">Arts</a>
         <div class="submenu">
-            <a href="portraits.ejs" onclick="arts_menu('portraits')">Pencil portraits</a>
-            <a href="acrylic.ejs" onclick="arts_menu('acrylic')">Acrylic paintings</a>
-            <a href="watercolor.ejs" onclick="arts_menu('watercolor')">Watercolor paintings</a>
-            <a href="draw.ejs" onclick="arts_menu('draw')">Drawings</a>
-            <a href="random_draw.ejs" onclick="arts_menu('random_draw')">Random drawings</a>
+            <a href="/portraits" onclick="arts_menu('portraits')">Pencil portraits</a>
+            <a href="/acrylic" onclick="arts_menu('acrylic')">Acrylic paintings</a>
+            <a href="/watercolor" onclick="arts_menu('watercolor')">Watercolor paintings</a>
+            <a href="/draw" onclick="arts_menu('draw')">Drawings</a>
+            <a href="/random_draw" onclick="arts_menu('random_draw')">Random drawings</a>
         </div>
     </div>
     <div class="dropdown">
-        <a href="artists.ejs">Artists</a>
+        <a href="/artists">Artists</a>
         <div class="submenu">
-            <a href="bia.ejs" onclick="artist_menu('Husu Bianca')">Artist 1</a>
-            <a href="georgi.ejs" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
-            <a href="marian.ejs" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
+            <a href="/bia" onclick="artist_menu('Husu Bianca')">Artist 1</a>
+            <a href="/georgi" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
+            <a href="/marian" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
         </div>
     </div>
-    <a href="reacts.ejs" onclick="showContent('reacts')">Reacts</a>
-    <a href="ai_art.ejs" onclick="showContent('ai')">AI Art</a>
+    <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
+    <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
     <div class="dropdown">
         <a href="#">Account</a>
         <div class="submenu">
-            <a href="#" onclick="account_menu('log_in')">Log in</a>
+            <a href="#" onclick="redirectToLogin()">Log in</a>
             <a href="#" onclick="account_menu('sing_in')">Sign in</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
     </div>
 </div>
 
+<h1 id="pageTitle">Acrylic</h1>
 
-<div id="main">
-    <h1 id="pageTitle">Arts page</h1>
-    <p id="pageContent"></p>
-</div>
-
+<div class="cart" onclick="showCart()">Cart (<span id="cart_count">0</span>)</div>
 
 <div class="product-container">
-
-    <div class="product">
-
-        <h2>Cat</h2>
-
-        <p class="price">19.99 euro</p>
-        <img src="/images?id=1">
-        <div class="imageContainer"></div>
-
-
-        <p>Descriere ....</p>
-        <p><button onclick="addToCart()">Adaugă în coș</button></p>
-    </div>
-    <div class="product">
-        <img src="acrylic_river.jpg" alt="river">
-        <h2>River</h2>
-        <p class="price">19.99 euro</p>
-        <img src="/images?id=5">
-        <p>Descriere ....</p>
-
-
-
-        <p><button onclick="addToCart()">Adaugă în coș</button></p>
-    </div>
+    <% lucrari.forEach(function(lucrare) { %>
+        <div class="product">
+            <img src="/images/<%= lucrare.locatie %>" alt="Pictură acrilică">
+            <h3><%- lucrare.descriere %></h3>
+            <p class="price"><%- lucrare.pret %> RON</p>
+            <button onclick="addToCart(<%- lucrare.id_art %>)">Add to Cart</button>
+        </div>
+    <% }); %>
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>

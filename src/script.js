@@ -87,7 +87,7 @@ function account_menu(page) {
             content.innerText = "Principal page";
     }
 }
-
+/*
 const acrylic_products = [
     {id: 1, name: "Cat", images:["desene\\acrylic\\acrylic_cat.jpg"], price: 99.99},
     {id: 2, name: "River", images:["desene\\acrylic\\acrylic_river2.jpg", "desene\\acrylic\\acrylic_river1.jpg", "desene\\acrylic\\acrylic_river3.jpg",], price: 99.99},
@@ -131,7 +131,7 @@ const random_products = [
    // {id: 31, name: "Wanda", images:[], price: 99.99},
    // {id: 32, name: "Wanda", images:[], price: 99.99},
 ];
-
+*/
 let cart = [];
 let selectedProduct = null;
 let currentImageIndex = 0;
@@ -268,4 +268,10 @@ function addToCart(){
 function showCart(){
     var cartItems = cart.map(function (p){ return p.name; }).join(", ");
     alert("Products" + cartItems);
+}
+
+function simulateAnchorClick(href) {
+    const a = document.createElement('a');
+    a.href = href;
+    a.click();
 }
