@@ -49,16 +49,15 @@
     <div id="productList"></div>
     <div class="cart" onclick="showCart()">Cart (<span id="cart_count">0</span>)</div>
 </div>
-<div id="product_details" style="display: none;">
-    <h2 id="detailName"></h2>
-    <div class="image_container">
-        <span class="arrow left" onclick="prevImage()">&#9664;</span>
-        <img id="detailImage" width="300">
-        <span class="arrow right" onclick="nextImage()">&#9654;</span>
-    </div>
-    <div id="thumbnailContainer" class="thumbnail_container"></div>
-    <p id="detailPrice"></p>
-    <button class="addCart" onclick="addToCart()">Add to cart</button>
+<div class="product-container">
+    <% lucrari.forEach(function(lucrare) { %>
+        <div class="product">
+            <img src="/images/<%= lucrare.locatie %>" alt="Pictură acrilică">
+            <h3><%- lucrare.descriere %></h3>
+            <p class="price"><%- lucrare.pret %> RON</p>
+            <button onclick="addToCart(<%- lucrare.id_art %>)">Add to Cart</button>
+        </div>
+    <% }); %>
 </div>
 
 <script src="script.js"></script>
