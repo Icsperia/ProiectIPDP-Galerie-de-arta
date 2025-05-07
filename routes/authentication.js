@@ -8,22 +8,21 @@ const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 
 const db = require('../DatabaseConnection');
-const userMiddleware = require('./middleware');
+const users = require('./middleware');
+const {validateRegister} = require("./middleware");
 
 // routes/router.js
 
-router.post('/register', userMiddleware.validateRegister, (req, res, next) => {
+
+router.post('/register', validateRegister, (req, res, next) => {
     db.query(
         'SELECT id_user FROM user WHERE LOWER(user_name) = LOWER(?)',
         [req.body.username],
         (err, result) => {
             if (result && result.length) {
-                // error
-                return res.status(409).send({
-                    message: 'This username is already in use!',
-                });
+                const error = 'This username is already in use!';
+                return res.render('register', { error });
             } else {
-                // username not in use
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
                         return res.status(500).send({
@@ -31,16 +30,15 @@ router.post('/register', userMiddleware.validateRegister, (req, res, next) => {
                         });
                     } else {
                         db.query(
-                            'INSERT INTO user (id_user, user_name, password, registered) VALUES (?, ?, ?, now());',
-                            [uuid.v4(), req.body.username, hash],
+                            'INSERT INTO user ( user_name, password, email, first_name, last_name, registered) VALUES ( ?, ?, ?, ?, ?, now());',
+                            [ req.body.user_name, hash, req.body.email, req.body.first_name, req.body.last_name],
                             (err, result) => {
                                 if (err) {
+                                    console.error('Database insertion error:', err);
                                     const error = "Eroare la inserarea în baza de date!";
                                     return res.redirect('/login?error=' + encodeURIComponent(error));
-                                    }
-
-                                return res.redirect('/');
-
+                                }
+                                return res.redirect('/login');
                             }
                         );
                     }
@@ -58,14 +56,13 @@ router.post('/login', (req, res, next) => {
         [req.body.username],
         (err, result) => {
             if (err) {
-                return res.status(400).send({
-                    message: err,
-                });
+                return res.status(400)
+
+
             }
             if (!result.length) {
-                return res.status(400).send({
-                    message: 'Username or password incorrect!',
-                });
+                return res.status(400)
+
             }
 
             bcrypt.compare(
@@ -74,11 +71,11 @@ router.post('/login', (req, res, next) => {
                 (bErr, bResult) => {
                     if (bErr) {
                         return res.status(400).send({
-                            message: 'Username or password incorrect!',
+
                         });
                     }
                     if (bResult) {
-                        // password match
+
                         const token = jwt.sign(
                             {
                                 user_name: result[0].user_name,
@@ -91,12 +88,9 @@ router.post('/login', (req, res, next) => {
                             result[0].id,
                         ]);
 
-                        // Redirect to the index page after successful login
-                        return res.redirect('/');  // Redirect to the homepage (index)
+                        return res.redirect('/about');
 
                     }
-
-                    // Redirect with error message
                     return res.redirect('/login?error=' + encodeURIComponent('Username or password incorrect!'));
                 }
             );
@@ -110,9 +104,15 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/register', (req, res) => {
-    const error = req.query.error || null;
-    res.render('register', { error });
+    res.render('register', {
+        error: req.query.error || null,
+        unError: null,
+        passError: null,
+        passMatchError: null
+    });
 });
+
+
 router.get('/secret-route', (req, res, next) => {
     res.send('This is the secret content. Only logged in users can see that!');
 });

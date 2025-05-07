@@ -6,16 +6,16 @@ const path = require("path");
 
 
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Acasă' });
+    const error = req.query.error || null;
+    res.render('login', { error });
 });
-
 router.get('/about', (req, res) => {
-    res.render('pages/about', { title: 'Despre noi' });
+    res.render('about', { title: 'Despre noi' });
 
 });
 
 router.get('/acrylic', (req, res) => {
-    db.query('SELECT id_art, descriere, pret, locatie FROM acrylic_paintings', (err, result) => {
+    db.query("SELECT id_art, descriere, pret, locatie FROM art WHERE categorie = 'acrylic' ", (err, result) => {
         if (err) {
             console.error('Eroare la interogarea bazei de date:', err);
             return res.status(500).send('Eroare la interogarea bazei de date');
@@ -26,45 +26,49 @@ router.get('/acrylic', (req, res) => {
 
 
 router.get('/watercolor', (req, res) => {
-
-
-
-    res.render('pages/watercolor', { title: 'Picturi in Apa' });
+    db.query("SELECT id_art, descriere, pret, locatie FROM art WHERE categorie = 'watercolor' ", (err, result) => {
+        if (err) {
+            console.error('Eroare la interogarea bazei de date:', err);
+            return res.status(500).send('Eroare la interogarea bazei de date');
+        }
+        res.render('watercolor', { title: 'Picturi in Apa' , lucrari: result });
+    });
 });
+
 
 router.get('/ai_art', (req, res) => {
-    res.render('pages/ai_art', { title: 'Arta ai(daca poti sa o numesti arta)' });
+    res.render('ai_art', { title: 'Arta ai(daca poti sa o numesti arta)' });
 });
 router.get('/art', (req, res) => {
-    res.render('pages/art', { title: 'Arta' });
+    res.render('art', { title: 'Arta' });
 });
 
 router.get('/artists', (req, res) => {
-    res.render('pages/artists', { title: 'Artisti' });
+    res.render('artists', { title: 'Artisti' });
 });
 router.get('/bia', (req, res) => {
-    res.render('pages/bia', { title: 'Bia' });
+    res.render('bia', { title: 'Bia' });
 });
 router.get('/draw', (req, res) => {
-    res.render('pages/draw', { title: 'Desene' });
+    res.render('draw', { title: 'Desene' });
 });
 router.get('/georgi', (req, res) => {
-    res.render('pages/georgi', { title: 'georgi' });
+    res.render('georgi', { title: 'georgi' });
 });
 
 router.get('/portraits', (req, res) => {
-    res.render('pages/portraits', { title: 'Portrete' });
+    res.render('portraits', { title: 'Portrete' });
 });
 router.get('/random_draw', (req, res) => {
-    res.render('pages/random_draw', { title: 'Desene aleatoare' });
+    res.render('random_draw', { title: 'Desene aleatoare' });
 });
 
 router.get('/reacts', (req, res) => {
-    res.render('pages/reacts', { title: 'Reactii' });
+    res.render('reacts', { title: 'Reactii' });
 });
 
 router.get('/marian', (req, res) => {
-    res.render('pages/reacts', { title: 'Reactii' });
+    res.render('reacts', { title: 'Reactii' });
 });
 
 
