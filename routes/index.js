@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../DatabaseConnection');
-const path = require("path");
+
+const {isAuthenticated} = require("./middleware");
 
 
 
@@ -9,13 +10,15 @@ router.get('/', (req, res) => {
     const error = req.query.error || null;
     res.render('login', { error });
 });
-router.get('/about', (req, res) => {
-    res.render('about', { title: 'Despre noi' });
-
+router.get('/about', isAuthenticated, (req, res) => {
+    console.log(req.user); // Verifică dacă req.user există
+    if (!req.user) {
+        return res.redirect('/login');  // Redirecționează dacă utilizatorul nu este autentificat
+    }
+    res.render('about', { user: req.user.user_name });
 });
-
-router.get('/acrylic', (req, res) => {
-    db.query("SELECT id_art, descriere, pret, locatie FROM art WHERE categorie = 'acrylic' ", (err, result) => {
+router.get('/acrylic',isAuthenticated, (req, res) => {
+    db.query("SELECT id_art, descriere, pret, locatie FROM  art WHERE categorie = 'acrylic' ", (err, result) => {
         if (err) {
             console.error('Eroare la interogarea bazei de date:', err);
             return res.status(500).send('Eroare la interogarea bazei de date');

@@ -105,3 +105,14 @@ h1 {
     flex-direction: column;
     align-items: center;
 }
+/* Stilizează elementul <p> care conține "Hello, <%= user %>!" */
+.greeting {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50; /* Poți schimba culoarea */
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}

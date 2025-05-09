@@ -9,10 +9,13 @@
 <body>
 
 <div class="navbar">
+
+
     <div class="logo">
         <img src="logo.png" alt="logo">
     </div>
     <a href="/about" onclick="showContent('about')">About</a>
+
     <div class="dropdown">
         <a href="/art">Arts</a>
         <div class="submenu">
@@ -30,6 +33,7 @@
             <a href="/georgi" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
             <a href="/marian" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
         </div>
+
     </div>
     <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
     <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
@@ -39,7 +43,9 @@
             <a href="#" onclick="redirectToLogin()">Log in</a>
             <a href="#" onclick="account_menu('sing_in')">Sign in</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
+
         </div>
+
     </div>
 </div>
 
@@ -53,7 +59,16 @@
             <img src="/images/<%= lucrare.locatie %>" alt="Pictură acrilică">
             <h3><%- lucrare.descriere %></h3>
             <p class="price"><%- lucrare.pret %> RON</p>
-            <button onclick="addToCart(<%- lucrare.id_art %>)">Add to Cart</button>
+
+            <form action="/add-to-cart" method="POST">
+                <input type="hidden" name="productId" value="<%= lucrare.id_art %>">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+</div>
+
+
+<a href="/cart">Go to Cart</a>
         </div>
     <% }); %>
 </div>
