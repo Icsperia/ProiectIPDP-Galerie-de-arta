@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const bcrypt = require('bcryptjs');
-const uuid = require('uuid');
+
 const jwt = require('jsonwebtoken');
 
 const db = require('../DatabaseConnection');
@@ -50,53 +50,44 @@ router.post('/register', validateRegister, (req, res, next) => {
 // routes/router.js
 
 
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res) => {
     db.query(
         `SELECT * FROM user WHERE user_name = ?;`,
         [req.body.username],
         (err, result) => {
-            if (err) {
-                return res.status(400)
+            if (err) return res.status(500).send("Eroare server.");
 
-
-            }
             if (!result.length) {
-                return res.status(400)
-
+                return res.render('login', { error: "Userul nu există." });
             }
 
-            bcrypt.compare(
-                req.body.password,
-                result[0]['password'],
-                (bErr, bResult) => {
-                    if (bErr) {
-                        return res.status(400).send({
+            bcrypt.compare(req.body.password, result[0]['password'], (bErr, bResult) => {
+                if (bErr) return res.status(500).send("Eroare la verificarea parolei.");
 
-                        });
-                    }
-                    if (bResult) {
+                if (bResult) {
+                    const token = jwt.sign(
+                        {
+                            user_name: result[0].user_name,
+                            userId: result[0].id,
+                        },
+                        'SECRETKEY',
+                        { expiresIn: '7d' }
+                    );
 
-                        const token = jwt.sign(
-                            {
-                                user_name: result[0].user_name,
-                                userId: result[0].id,
-                            },
-                            'SECRETKEY',
-                            { expiresIn: '7d' }
-                        );
-                        db.query(`UPDATE user SET last_login = now() WHERE id_user = ?;`, [
-                            result[0].id,
-                        ]);
+                    // Setează token-ul în cookie
+                    res.cookie('token', token, { httpOnly: true });
 
-                        return res.redirect('/about');
+                    db.query(`UPDATE user SET last_login = now() WHERE id_user = ?;`, [result[0].id]);
 
-                    }
-                    return res.redirect('/login?error=' + encodeURIComponent('Username or password incorrect!'));
+                    return res.redirect('/about');
+                } else {
+                    return res.render('login', { error: "Parolă incorectă." });
                 }
-            );
+            });
         }
     );
 });
+
 
 router.get('/login', (req, res) => {
     const error = req.query.error || null;
