@@ -4,13 +4,13 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <div class="navbar">
     <div class="logo">
-        <img src="logo.png" alt="logo">
+        <img src="/images/logo.png" alt="logo">
     </div>
 
     <a href="/about" onclick="showContent('about')">About</a>
@@ -27,18 +27,17 @@
     <div class="dropdown">
         <a href="/artists">Artists</a>
         <div class="submenu">
-            <a href="/bia" onclick="artist_menu('Husu Bianca')">Artist 1</a>
-            <a href="/georgi" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
-            <a href="/marian" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
+            <a href="/bia" onclick="artist_menu('1')">BIA</a>
+            <a href="/georgi" onclick="artist_menu('2')">GEORGI</a>
+            <a href="/marian" onclick="artist_menu('3')">MARIAN</a>
         </div>
     </div>
     <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
     <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
+
     <div class="dropdown">
-        <a href="#">Account</a>
         <div class="submenu">
             <a window.location.href="/register" onclick="account_menu('register')">Register</a>
-
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
         <p class="greeting">Hello, <%= user %>!</p>
@@ -50,7 +49,7 @@
     <p id="pageContent"></p>
 </div>
 
-<script src="script.js"></script>
+<script src="/script.js"></script>
 <script src="/routes/authentication.js"></script>
 </body>
 </html>
