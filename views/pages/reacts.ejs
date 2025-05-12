@@ -4,7 +4,7 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
-    <link rel="stylesheet" href="../../src/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -34,13 +34,13 @@
     </div>
     <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
     <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
+
     <div class="dropdown">
-        <a href="#">Account</a>
         <div class="submenu">
-            <a href="#" onclick="account_menu('log_in')">Log in</a>
-            <a href="#" onclick="account_menu('sing_in')">Sign in</a>
+            <a window.location.href="/register" onclick="account_menu('register')">Register</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
+        <p class="greeting">Hello, <%= user %>!</p>
     </div>
 </div>
 
@@ -49,6 +49,7 @@
     <p id="pageContent"></p>
 </div>
 
-<script src="script.js"></script>
+<script src="/script.js"></script>
+<script src="/routes/authentication.js"></script>
 </body>
 </html>
