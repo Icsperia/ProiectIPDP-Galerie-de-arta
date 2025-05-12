@@ -1,21 +1,33 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 
+const router = require('./routes/authentication');
+
+
+const indexRoutes = require('./routes/index');
+const imageRoutes = require('./routes/image');
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Serve static files from 'ProiectIPDP-Galerie-de-arta'
-app.use(express.static(path.join(__dirname, 'src')));
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
-// Serve the main HTML file
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,  'index.html'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views', 'pages'));
+const staticPath = path.join(__dirname, 'src');
 
+app.use(express.static(staticPath));
+// Routes
+app.use('/', indexRoutes);
+app.use('/', imageRoutes);
+app.use('/', router);
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
-
-// Handle 404 errors
-app.use((req, res) => {
-    res.status(404).send('<h1>Not Found</h1>');
-});
-
-// Start the server
-app.listen(3000, () => console.log('Server started on port 3000'));
