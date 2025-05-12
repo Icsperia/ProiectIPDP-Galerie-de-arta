@@ -89,15 +89,16 @@ router.get('/portraits', isAuthenticated, (req, res) => {
 });
 
 router.get('/ai_art', isAuthenticated, (req, res) => {
-    res.render('ai_art', { title: 'Arta AI' });
+    res.render('ai_art', { title: 'AI art', user: req.user.user_name });
 });
 
+
 router.get('/art', isAuthenticated, (req, res) => {
-    res.render('art', { title: 'Arta' });
+    res.render('art', { title: 'Arta', user: req.user.user_name });
 });
 
 router.get('/artists', isAuthenticated, (req, res) => {
-    res.render('artists', { title: 'Artisti' });
+    res.render('artists', { title: 'Artist', user: req.user.user_name });
 });
 
 router.get('/bia', isAuthenticated, (req, res) => {
@@ -177,8 +178,9 @@ router.get('/random_draw', isAuthenticated, (req, res) => {
 });
 
 router.get('/reacts', isAuthenticated, (req, res) => {
-    res.render('reacts', { title: 'Reactii' });
+    res.render('reacts', { title: 'Reacts', user: req.user.user_name });
 });
+
 
 router.get('/marian', isAuthenticated, (req, res) => {
         const artistInfo = {
