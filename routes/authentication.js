@@ -13,7 +13,6 @@ const {validateRegister} = require("./middleware");
 
 // routes/router.js
 
-
 router.post('/register', validateRegister, (req, res, next) => {
     db.query(
         'SELECT id_user FROM user WHERE LOWER(user_name) = LOWER(?)',
@@ -48,8 +47,6 @@ router.post('/register', validateRegister, (req, res, next) => {
     );
 });
 // routes/router.js
-
-
 router.post('/login', (req, res) => {
     db.query(
         `SELECT * FROM user WHERE user_name = ?;`,

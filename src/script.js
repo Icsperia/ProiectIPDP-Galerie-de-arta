@@ -35,8 +35,8 @@ function arts_menu(page) {
         case 'watercolor':
             title.innerText = "Watercolor Paintings";
             break;
-        case 'draw':
-            title.innerText = "Drawings";
+        case 'dress':
+            title.innerText = "Dress Paintings";
             break;
         case 'random_draw':
             title.innerText = "Random Drawings";
@@ -87,51 +87,300 @@ function account_menu(page) {
             content.innerText = "Principal page";
     }
 }
+
 /*
 const acrylic_products = [
-    {id: 1, name: "Cat", images:["desene\\acrylic\\acrylic_cat.jpg"], price: 99.99},
-    {id: 2, name: "River", images:["desene\\acrylic\\acrylic_river2.jpg", "desene\\acrylic\\acrylic_river1.jpg", "desene\\acrylic\\acrylic_river3.jpg",], price: 99.99},
-    {id: 3, name: "Cascade", images: ["desene\\acrylic\\acrylic_cascade.jpg", "desene\\acrylic\\acrylic_cascade2.jpg", "desene\\acrylic\\acrylic_cascade3.jpg"], price: 99.99},
-    {id: 4, name: "Forest", images: ["desene\\acrylic\\acrylic_forest.jpg", "desene\\acrylic\\acrylic_forest1.jpg", "desene\\acrylic\\acrylic_forest2.jpg"], price: 99.99},
-    {id: 5, name: "Cascade", images: ["desene\\acrylic\\acrylic_mountain.jpg", "desene\\acrylic\\acrylic_mountain1.jpg", "desene\\acrylic\\acrylic_mountain2.jpg"], price: 99.99},
-    {id: 6, name: "Sunrise", images: ["desene\\acrylic\\acrylic_sunrise.jpg","desene\\acrylic\\acrylic_sunrise1.jpg", "desene\\acrylic\\acrylic_sunrise2.jpg"], price: 99.99},
-    {id: 7, name: "Lake", images: ["desene\\acrylic\\acrylic_lake.jpg", "desene\\acrylic\\acrylic_lake1.jpg"], price: 99.99},
-    {id: 8, name: "Fire", images: ["desene\\acrylic\\acrylic_fire1.jpg", "desene\\acrylic\\acrylic_fire2.jpg"], price: 99.99},
-    {id: 9, name: "Icon", images: ["desene\\acrylic\\acrylic_icon1.jpg", "desene\\acrylic\\acrylic_icon2.jpg"], price: 99.99},
-
+    {
+        id: 1,
+        name: "Cat",
+        description: "Cat painting in acylic. The head of a reddish-brown cat, with white details, large hazel eyes, a small pink nose, on a fresh green and forest green background.",
+        images: ["/images/acrylic/acrylic_cat.jpg"],
+        price: 99.99
+    },
+    {
+        id: 2,
+        name: "River",
+        description: "Acrylic painting of a river in the middle, surrounded on the right and back by dark green fir trees and on the left on the side of a road, rich natural green trees.",
+        images: [
+            "/images/acrylic/acrylic_river2.jpg",
+            "/images/acrylic/acrylic_river1.jpg",
+            "/images/acrylic/acrylic_river3.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 3,
+        name: "Cascade",
+        description: "In the foreground flows a clear river, with blue and pale pink reflections, descending over the rocks. On the banks of the river, the vegetation is abundant, with green grass and bushes in shades of yellow and orange.\n" +
+            "\n" +
+            "In the center of attention is a spectacular waterfall with white foam that pours from a higher area, surrounded by trees of various colors - raw green, yellow, orange, red, but also lilac - suggesting chromatic fantasy. In the background rises a blue-gray mountain, with a sharp peak, under a clear blue sky covered with clouds in which the light is reflected in shades of pale pink, cream, orange that create a sunrise atmosphere.\n",
+        images: [
+            "/images/acrylic/acrylic_cascade.jpg",
+            "/images/acrylic/acrylic_cascade2.jpg",
+            "/images/acrylic/acrylic_cascade3.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 4,
+        name: "Forest",
+        description: "In the forest with deep green trees in the back is a old wooden cabin see in the right, from beside her come a turbulent river with speed and breaks into a cascade on the rooks. In the left side are three deer and one little roe deer who looks in the forest. ",
+        images: [
+            "/images/acrylic/acrylic_forest.jpg",
+            "/images/acrylic/acrylic_forest1.jpg",
+            "/images/acrylic/acrylic_forest2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 5,
+        name: "Mountain",
+        description: "In a sunrise atmosphere, a hight peak of a mountain with the clouds saround him. Come from altitude in front of us. Little dirty withe flowers at the bottom",
+        images: [
+            "/images/acrylic/acrylic_mountain.jpg",
+            "/images/acrylic/acrylic_mountain1.jpg",
+            "/images/acrylic/acrylic_mountain2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 6,
+        name: "Sunrise",
+        description: "Acrylic painting of a lavender field in the fire o the sunrise atmosphere.",
+        images: [
+            "/images/acrylic/acrylic_sunrise.jpg",
+            "/images/acrylic/acrylic_sunrise1.jpg",
+            "/images/acrylic/acrylic_sunrise2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 7,
+        name: "Lake",
+        description: "Peaceful acrylic lake scene",
+        images: [
+            "/images/acrylic/acrylic_lake.jpg",
+            "/images/acrylic/acrylic_lake1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 8,
+        name: "Fire",
+        description: "Abstract fire composition in acrylic",
+        images: [
+            "/images/acrylic/acrylic_fire1.jpg",
+            "/images/acrylic/acrylic_fire2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 9,
+        name: "Icon",
+        description: "Religious icon acrylic painting",
+        images: [
+            "/images/acrylic/acrylic_icon1.jpg",
+            "/images/acrylic/acrylic_icon2.jpg"
+        ],
+        price: 99.99
+    }
 ];
 
 const watercolor_products = [
-    {id: 10, name: "Cat", images:["desene\\watercolor\\w_cat.jpg", "desene\\watercolor\\w_cat1.jpg"], price: 99.99},
-    {id: 11, name: "Dragon", images:["desene\\watercolor\\w_dragon.jpg"], price: 99.99},
-    {id: 12, name: "Stark wolf", images:["desene\\watercolor\\w_stark.jpg", "desene\\watercolor\\w_stark1.jpg"], price: 99.99},
-    {id: 13, name: "Person", images:["desene\\watercolor\\w_bipolar.jpg"], price: 99.99},
-    {id: 14, name: "Wanda", images:["desene\\watercolor\\w_wanda.jpg", "desene\\watercolor\\w_wanda1.jpg"], price: 99.99},
+    {
+        id: 10,
+        name: "Cat",
+        description: "Whimsical watercolor cat",
+        images: [
+            "/images/watercolor/w_cat.jpg",
+            "/images/watercolor/w_cat1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 11,
+        name: "Dragon",
+        description: "Fantasy dragon watercolor",
+        images: ["/images/watercolor/w_dragon.jpg"],
+        price: 99.99
+    },
+    {
+        id: 12,
+        name: "Stark wolf",
+        description: "Inspired by Game of Thrones - Stark direwolf",
+        images: [
+            "/images/watercolor/w_stark.jpg",
+            "/images/watercolor/w_stark1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 13,
+        name: "Person",
+        description: "Expressive abstract portrait",
+        images: ["/images/watercolor/w_bipolar.jpg"],
+        price: 99.99
+    },
+    {
+        id: 14,
+        name: "Wanda",
+        description: "Portrait of Wanda in watercolor style",
+        images: [
+            "/images/watercolor/w_wanda.jpg",
+            "/images/watercolor/w_wanda1.jpg"
+        ],
+        price: 99.99
+    }
 ];
 
 const portret_products = [
-    {id: 15, name: "Zendaya", images:["desene\\portret\\portret_zendaya2.jpg", "desene\\portret\\portret_zendaya.jpg", "desene\\portret\\portret_zendaya1.jpg"], price: 99.99},
-    {id: 16, name: "The witcher", images:["desene\\portret\\portret_witcher1.jpg", "desene\\portret\\portret_witcher.jpg"], price: 99.99},
-    {id: 17, name: "Baby", images:["desene\\portret\\portret_bebe.jpg", "desene\\portret\\portret_zendaya1.jpg", "desene\\portret\\portret_bebe2.jpg"], price: 99.99},
-    {id: 18, name: "Butterfly", images:["desene\\portret\\portret_butterfly.jpg", "desene\\portret\\portret_butterfly1.jpg"], price: 99.99},
-    {id: 19, name: "Children", images:["desene\\portret\\portret_copii.jpg", "desene\\portret\\portret_copii1.jpg"], price: 99.99},
-    {id: 20, name: "Rhaenyra", images:["desene\\portret\\portret_hotd.jpg", "desene\\portret\\portret_hotd2.jpg"], price: 99.99},
-    {id: 21, name: "Andreea", images:["desene\\portret\\portret_andreea.jpg"], price: 99.99},
-    {id: 22, name: "Zendaya Dune", images:["desene\\portret\\portret_dune.jpg"], price: 99.99},
-    {id: 23, name: "Cousins", images:["desene\\portret\\portret_ionut.jpg"], price: 99.99},
-    {id: 24, name: "Loki", images:["desene\\portret\\portret_loki.jpg", "desene\\portret\\portret_loki1.jpg"], price: 99.99},
-    //{id: 25, name: "Wanda", images:[], price: 99.99},
+    {
+        id: 15,
+        name: "Zendaya",
+        description: "Realistic portrait of Zendaya",
+        images: [
+            "/images/portret/portret_zendaya2.jpg",
+            "/images/portret/portret_zendaya.jpg",
+            "/images/portret/portret_zendaya1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 16,
+        name: "The witcher",
+        description: "Portrait of The Witcher character",
+        images: [
+            "/images/portret/portret_witcher1.jpg",
+            "/images/portret/portret_witcher.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 17,
+        name: "Baby",
+        description: "Cute baby portrait",
+        images: [
+            "/images/portret/portret_bebe.jpg",
+            "/images/portret/portret_zendaya1.jpg",
+            "/images/portret/portret_bebe2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 18,
+        name: "Butterfly",
+        description: "Girl with butterfly face paint",
+        images: [
+            "/images/portret/portret_butterfly.jpg",
+            "/images/portret/portret_butterfly1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 19,
+        name: "Children",
+        description: "Siblings/children portrait",
+        images: [
+            "/images/portret/portret_copii.jpg",
+            "/images/portret/portret_copii1.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 20,
+        name: "Rhaenyra",
+        description: "Portrait inspired by House of the Dragon",
+        images: [
+            "/images/portret/portret_hotd.jpg",
+            "/images/portret/portret_hotd2.jpg"
+        ],
+        price: 99.99
+    },
+    {
+        id: 21,
+        name: "Andreea",
+        description: "Custom portrait of Andreea",
+        images: ["/images/portret/portret_andreea.jpg"],
+        price: 99.99
+    },
+    {
+        id: 22,
+        name: "Zendaya Dune",
+        description: "Zendaya as Chani from Dune",
+        images: ["/images/portret/portret_dune.jpg"],
+        price: 99.99
+    },
+    {
+        id: 23,
+        name: "Cousins",
+        description: "Portrait of two cousins",
+        images: ["/images/portret/portret_ionut.jpg"],
+        price: 99.99
+    },
+    {
+        id: 24,
+        name: "Loki",
+        description: "Portrait of Loki from Marvel",
+        images: [
+            "/images/portret/portret_loki.jpg",
+            "/images/portret/portret_loki1.jpg"
+        ],
+        price: 99.99
+    }
 ];
+
 const random_products = [
-    {id: 28, name: "Eye", images:["desene\\random\\old_eye.jpg"], price: 99.99},
-    {id: 26, name: "Carnaval", images:["desene\\random\\carnaval.jpg"], price: 99.99},
-    {id: 27, name: "Dune", images:["desene\\random\\dune.jpg"], price: 99.99},
-    {id: 29, name: "Flower", images:["desene\\random\\flower.jpg"], price: 99.99},
-    {id: 30, name: "Phonecase", images:["desene\\random\\phonecase1.jpg", "desene\\random\\phonecase.jpg"], price: 99.99},
-   // {id: 31, name: "Wanda", images:[], price: 99.99},
-   // {id: 32, name: "Wanda", images:[], price: 99.99},
+    {
+        id: 28,
+        name: "Eye",
+        description: "Detailed eye sketch",
+        images: ["/images/random/old_eye.jpg"],
+        price: 99.99
+    },
+    {
+        id: 26,
+        name: "Carnaval",
+        description: "Colorful carnival theme",
+        images: ["/images/random/carnaval.jpg"],
+        price: 99.99
+    },
+    {
+        id: 27,
+        name: "Dune",
+        description: "Abstract artwork inspired by Dune",
+        images: ["/images/random/dune.jpg"],
+        price: 99.99
+    },
+    {
+        id: 29,
+        name: "Flower",
+        description: "Bright floral artwork",
+        images: ["/images/random/flower.jpg"],
+        price: 99.99
+    },
+    {
+        id: 30,
+        name: "Phonecase",
+        description: "Custom phonecase painting",
+        images: [
+            "/images/random/phonecase1.jpg",
+            "/images/random/phonecase.jpg"
+        ],
+        price: 99.99
+    }
 ];
-*/
+
+const dress_products = [
+    {
+        id: 31,
+        name: "Dark dress",
+        description: "",
+        images: ["/images/draw/rochieA.jpg", "/images/draw/rochieA1.jpg"],
+        price: 99.99
+    }
+    // si asa mai departe .....
+]*/
+
 let cart = [];
 let selectedProduct = null;
 let currentImageIndex = 0;
@@ -205,7 +454,6 @@ function viewProduct(id, product) {
 
     displayThumbnails();
 
-    // Evităm adăugarea multiplă
     const detailImage = document.getElementById("detailImage");
     detailImage.onclick = function (event) {
         var imageWidth = this.clientWidth;
@@ -275,3 +523,87 @@ function simulateAnchorClick(href) {
     a.href = href;
     a.click();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Rotație imagini activată");
+
+    const rotators = document.querySelectorAll(".rotating-image");
+
+    rotators.forEach(img => {
+        const images = img.dataset.images.split(',').map(i => i.trim());
+        let index = 0;
+        let interval;
+
+        img.addEventListener('mouseenter', () => {
+            index = 0;
+            interval = setInterval(() => {
+                index = (index + 1) % images.length;
+                img.src = images[index];
+            }, 1000);
+        });
+
+        img.addEventListener('mouseleave', () => {
+            clearInterval(interval);
+            img.src = images[0];
+        });
+    });
+});
+
+//***************************integrare_openAI******************************
+document.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("generateBtn")) {
+        const button = event.target;
+        const item = button.closest(".item, .product");
+        const img = item.querySelector("img");
+        const result = item.querySelector(".result");
+
+        button.disabled = true;
+        button.textContent = "Generating...";
+        try {
+            const imageElement = new Image();
+            imageElement.crossOrigin = "anonymous";
+            imageElement.src = img.src;
+
+            await new Promise((resolve, reject) => {
+                imageElement.onload = resolve;
+                imageElement.onerror = reject;
+            });
+
+            const canvas = document.createElement("canvas");
+            canvas.width = imageElement.width;
+            canvas.height = imageElement.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(imageElement, 0, 0);
+
+            const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+
+            if (blob.size > 4 * 1024 * 1024) {
+                alert("The image is too large (>4MB). Try a smaller one.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", blob, "original_image.png");
+
+            const apiResponse = await fetch("/api/generate-variation", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await apiResponse.json();
+
+            if (data.imageUrl) {
+                result.innerHTML = '<img src="' + data.imageUrl + '" alt="Generated image">';
+            } else {
+                alert("Error: " + data.error);
+            }
+        } catch (error) {
+            alert("Generating Error:");
+            console.error(error);
+        } finally {
+            button.disabled = false;
+            button.textContent = "Generate image";
+        }
+    }
+});
+
