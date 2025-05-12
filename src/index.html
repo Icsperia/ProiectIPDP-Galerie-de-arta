@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="navbar">
-    <div class="logo">
-        <img src="logo5-removebg-preview.png" alt="logo">
+<div id="mySidebar" class="sidebar">
+    <a href="#" class="logo">Infinite Palette</a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+
+    <a href="#" onclick="productsSubmenu()">Art</a>
+    <div id="products" class="submenu">
+        <a href="#" onclick="arts_menu('portraits')">Pencil portraits</a>
+        <a href="#" onclick="arts_menu('acrylic')">Acrylic paintings</a>
+        <a href="#" onclick="arts_menu('watercolor')">Watercolor paintings</a>
+        <a href="#" onclick="arts_menu('draw')">Drawings</a>
+        <a href="#" onclick="arts_menu('random_draw')">Random drawings</a>
     </div>
 
-    <a href="about.html" onclick="showContent('about')">About</a>
-    <div class="dropdown">
-        <a href="art.html">Arts</a>
-        <div class="submenu">
-            <a href="portraits.html" onclick="arts_menu('portraits')">Pencil portraits</a>
-            <a href="acrylic.html" onclick="arts_menu('acrylic')">Acrylic paintings</a>
-            <a href="watercolor.html" onclick="arts_menu('watercolor')">Watercolor paintings</a>
-            <a href="draw.html" onclick="arts_menu('draw')">Drawings</a>
-            <a href="random_draw.html" onclick="arts_menu('random_draw')">Random drawings</a>
-        </div>
+    <a href="#" onclick="showArtists()">Artists</a>
+    <div id="artists" class="submenu">
+        <a href="#" onclick="artist_menu('1')">1</a>
+        <a href="#" onclick="artist_menu('2')">2</a>
+        <a href="#" onclick="artist_menu('3')">3</a>
     </div>
-    <div class="dropdown">
-        <a href="artists.html">Artists</a>
-        <div class="submenu">
-            <a href="bia.html" onclick="artist_menu('Husu Bianca')">Artist 1</a>
-            <a href="georgi.html" onclick="artist_menu('Sanda Georgiana')">Artist 2</a>
-            <a href="marian.html" onclick="artist_menu('Garbacea Marian')">Artist 3</a>
-        </div>
-    </div>
-    <a href="reacts.html" onclick="showContent('reacts')">Reacts</a>
-    <a href="ai_art.html" onclick="showContent('ai')">AI Art</a>
-    <div class="dropdown">
-        <a href="#">Account</a>
-        <div class="submenu">
-            <a href="#" onclick="account_menu('log_in')">Log in</a>
-            <a href="#" onclick="account_menu('sing_in')">Sign in</a>
-            <a href="#" onclick="account_menu('condition')">Conditions</a>
-        </div>
+
+    <a href="#" onclick="showContent('reacts')">Reacts</a>
+    <a href="#" onclick="showContent('ai')">AI Art</a>
+    <a href="#" onclick="showContent('about')">About</a>
+
+    <a href="#" onclick="accountData()">Account</a>
+    <div id="accounts" class="submenu">
+        <a href="#" onclick="account_menu('log_in')">Log in</a>
+        <a href="#" onclick="account_menu('sign-in')">Sing in</a>
+        <a href="#" onclick="account_menu('condition')">Conditions</a>
     </div>
 </div>
 
 <div id="main">
+    <h2 class="bar">
+    <button class="openbtn" id="openBtn" onclick="openNav()">Menu</button>  
+    </h2>
     <h1 id="pageTitle">Welcome at the gallery</h1>
     <p id="pageContent"></p>
 </div>
