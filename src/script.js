@@ -504,19 +504,6 @@ function changeImage(index){
     updateMainImage();
 }
 
-function addToCart(){
-    cart.push(selectedProduct);
-    document.getElementById("cart_count").textContent = cart.length;
-    alert("Added to cart");
-
-    document.getElementById("product_details").style.display = "none";
-    document.getElementById("productList").style.display = "block";
-}
-
-function showCart(){
-    var cartItems = cart.map(function (p){ return p.name; }).join(", ");
-    alert("Products" + cartItems);
-}
 
 function simulateAnchorClick(href) {
     const a = document.createElement('a');
@@ -607,3 +594,39 @@ document.addEventListener("click", async (event) => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".addCart");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = button.getAttribute("data-id");
+
+            fetch("/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `productId=${productId}`
+            })
+                .then(() => {
+
+                    return fetch("/cart/count");
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    document.getElementById("cart_count").textContent = data.count;
+
+
+                    const toast = document.getElementById("toast");
+                    toast.classList.add("show");
+
+
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 3000);
+                })
+                .catch(err => console.error("Eroare:", err));
+        });
+    });
+});

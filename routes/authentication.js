@@ -1,21 +1,18 @@
 // routes/router.js
-
 const express = require('express');
 const router = express.Router();
-
 const bcrypt = require('bcryptjs');
-
 const jwt = require('jsonwebtoken');
 
 const db = require('../DatabaseConnection');
 const users = require('./middleware');
 const {validateRegister} = require("./middleware");
 
-// routes/router.js
+
 
 router.post('/register', validateRegister, (req, res, next) => {
     db.query(
-        'SELECT id_user FROM user WHERE LOWER(user_name) = LOWER(?)',
+        'SELECT id FROM user WHERE LOWER(user_name) = LOWER(?)',
         [req.body.username],
         (err, result) => {
             if (result && result.length) {
@@ -71,10 +68,13 @@ router.post('/login', (req, res) => {
                         { expiresIn: '7d' }
                     );
 
-                    // Setează token-ul în cookie
-                    res.cookie('token', token, { httpOnly: true });
 
-                    db.query(`UPDATE user SET last_login = now() WHERE id_user = ?;`, [result[0].id]);
+                    res.cookie('token', token, { httpOnly: true });
+                    req.session.user = {
+                        id: result[0].id,
+                        username: result[0].user_name
+                    };
+                    db.query(`UPDATE user SET last_login = now() WHERE id = ?;`, [result[0].id]);
 
                     return res.redirect('/about');
                 } else {
@@ -84,6 +84,17 @@ router.post('/login', (req, res) => {
         }
     );
 });
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.log('Eroare la logout:', err);
+            return res.redirect('/');
+        }
+
+        res.clearCookie('connect.sid'); // numele cookie-ului de sesiune
+        res.redirect('/');
+    });
+});
 
 
 router.get('/login', (req, res) => {
@@ -91,18 +102,13 @@ router.get('/login', (req, res) => {
     res.render('login', { error });
 });
 
-router.get('/register', (req, res) => {
-    res.render('register', {
-        error: req.query.error || null,
-        unError: null,
-        passError: null,
-        passMatchError: null
+    router.get('/register', (req, res) => {
+        res.render('register', {
+            error: req.query.error || null,
+            unError: null,
+            passError: null,
+            passMatchError: null
+        });
     });
-});
-
-
-router.get('/secret-route', (req, res, next) => {
-    res.send('This is the secret content. Only logged in users can see that!');
-});
 
 module.exports = router;

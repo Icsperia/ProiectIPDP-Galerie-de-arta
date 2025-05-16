@@ -40,7 +40,7 @@
 
     <div class="dropdown">
         <div class="submenu">
-            <a window.location.href="/register" onclick="account_menu('register')">Register</a>
+            <a href="/logout" id="logoutBtn">Logout</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
         <p class="greeting">Hello, <%= user %>!</p>
@@ -54,7 +54,8 @@
 
 <h1 id="pageTitle">Watercolor</h1>
 
-<div class="cart" onclick="showCart()">Cart (<span id="cart_count">0</span>)</div>
+<div class="cart" onclick="showCart()">Cart (<span id="cart_count"><%= (session.cart && session.cart.length) || 0 %></span>)</div>
+
 
 <div class="product-container">
     <% lucrari.forEach(function(lucrare) {
@@ -72,9 +73,8 @@
             <p><%= lucrare.descriere %></p>
             <p class="price"><%= lucrare.pret %> RON</p>
 
-            <form action="/add-to-cart" method="POST">
-                <input type="hidden" name="productId" value="<%= lucrare.id_art %>">
-                <button type="submit" class="addCart">Add to Cart</button>
+            <form action="/cart/<%= p.id_art %>" method="get">
+                <button type="submit">Buy</button>
             </form>
 
             <button class="generateBtn">Generate image</button>
@@ -85,7 +85,7 @@
 </div>
 
 
-<a href="/cart">Go to Cart</a>
+
 
 <script src="/script.js"></script>
 </body>
