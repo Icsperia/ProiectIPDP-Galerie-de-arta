@@ -559,6 +559,7 @@ document.addEventListener("click", async (event) => {
 
         button.disabled = true;
         button.textContent = "Generating...";
+
         try {
             const imageElement = new Image();
             imageElement.crossOrigin = "anonymous";
@@ -575,11 +576,18 @@ document.addEventListener("click", async (event) => {
             const ctx = canvas.getContext("2d");
             ctx.drawImage(imageElement, 0, 0);
 
-            const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+            let blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
 
-            if (blob.size > 4 * 1024 * 1024) {
-                alert("The image is too large (>4MB). Try a smaller one.");
-                return;
+            while (blob.size > 4 * 1024 * 1024) {
+                const scaleFactor = Math.sqrt((4 * 1024 * 1024) / blob.size);
+                const newWidth = Math.floor(canvas.width * scaleFactor);
+                const newHeight = Math.floor(canvas.height * scaleFactor);
+
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
+
+                blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
             }
 
             const formData = new FormData();
@@ -606,4 +614,5 @@ document.addEventListener("click", async (event) => {
         }
     }
 });
+
 
