@@ -16,7 +16,7 @@ router.get('/about', isAuthenticated, (req, res) => {
     if (!req.user) {
         return res.redirect('/login');
     }
-    res.render('about', { user: req.user.user_name });
+    res.render('about', { user: req.user.user_name, session: req.session });
 });
 
 router.get('/acrylic', isAuthenticated, (req, res) => {
@@ -37,7 +37,8 @@ router.get('/acrylic', isAuthenticated, (req, res) => {
         res.render('acrylic', {
             title: 'Picturi Acrilice',
             lucrari,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     });
 });
@@ -60,7 +61,8 @@ router.get('/watercolor', isAuthenticated, (req, res) => {
         res.render('watercolor', {
             title: 'Watercolor',
             lucrari,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     });
 });
@@ -83,22 +85,23 @@ router.get('/portraits', isAuthenticated, (req, res) => {
         res.render('portraits', {
             title: 'Pencil portraits',
             lucrari,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     });
 });
 
 router.get('/ai_art', isAuthenticated, (req, res) => {
-    res.render('ai_art', { title: 'AI art', user: req.user.user_name });
+    res.render('ai_art', { title: 'AI art', user: req.user.user_name,session: req.session});
 });
 
 
 router.get('/art', isAuthenticated, (req, res) => {
-    res.render('art', { title: 'Arta', user: req.user.user_name });
+    res.render('art', { title: 'Arta', user: req.user.user_name, session: req.session});
 });
 
 router.get('/artists', isAuthenticated, (req, res) => {
-    res.render('artists', { title: 'Artist', user: req.user.user_name });
+    res.render('artists', { title: 'Artist', user: req.user.user_name, session: req.session });
 });
 
 router.get('/bia', isAuthenticated, (req, res) => {
@@ -111,7 +114,8 @@ router.get('/bia', isAuthenticated, (req, res) => {
     res.render('bia', {
         title: 'About Bianca Husu',
         artist: artistInfo,
-        user: req.user.user_name
+        user: req.user.user_name,
+        session: req.session
     });
 });
 
@@ -133,7 +137,8 @@ router.get('/dress', isAuthenticated, (req, res) => {
         res.render('dress', {
             title: 'Dress',
             lucrari,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     });
 });
@@ -149,7 +154,8 @@ router.get('/georgi', isAuthenticated, (req, res) => {
     res.render('georgi', {
         title: 'About Georgiana Sanda',
         artist: artistInfo,
-        user: req.user.user_name
+        user: req.user.user_name,
+        session: req.session
     });
 });
 
@@ -172,13 +178,14 @@ router.get('/random_draw', isAuthenticated, (req, res) => {
         res.render('random_draw', {
             title: 'Random draw',
             lucrari,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     });
 });
 
 router.get('/reacts', isAuthenticated, (req, res) => {
-    res.render('reacts', { title: 'Reacts', user: req.user.user_name });
+    res.render('reacts', { title: 'Reacts', user: req.user.user_name,  session: req.session});
 });
 
 
@@ -192,8 +199,19 @@ router.get('/marian', isAuthenticated, (req, res) => {
         res.render('marian', {
             title: 'About Marian Girbacea',
             artist: artistInfo,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
 });
 
+router.get('/cart', isAuthenticated, (req, res) => {
+    const success = req.query.success || null;
+    res.render('cart', {
+        title: 'Cart',
+        user: req.user.user_name,
+        success:success,
+        session: req.session
+    });
+
+});
 module.exports = router;

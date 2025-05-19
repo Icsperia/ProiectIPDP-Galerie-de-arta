@@ -615,4 +615,41 @@ document.addEventListener("click", async (event) => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".addCart");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = button.getAttribute("data-id");
+
+            fetch("/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `productId=${productId}`
+            })
+                .then(() => {
+
+                    return fetch("/cart/count");
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    document.getElementById("cart_count").textContent = data.count;
+
+
+                    const toast = document.getElementById("toast");
+                    toast.classList.add("show");
+
+
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 3000);
+                })
+                .catch(err => console.error("Eroare:", err));
+        });
+    });
+});
+
 
