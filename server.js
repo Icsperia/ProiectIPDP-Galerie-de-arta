@@ -33,7 +33,7 @@ const authRoutes = require('./routes/authentication');
 
 const imageGenerationRoutes = require('./routes/openAi-image');
 app.use('/', indexRoutes);
-app.use('/', authRoutes);a
+app.use('/', authRoutes);
 app.use('/', shoppingCartRoutes);
 app.use('/api', imageGenerationRoutes);
 
