@@ -2,10 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const router = require('./routes/authentication');
 const session = require('express-session');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Middleware pentru sesiune
 app.use(session({
     secret: '1234567890abcdefghijklmnopqrstuvwxyz',
     resave: false,
@@ -13,30 +15,27 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-
-
-// Middleware
+// Middleware-uri clasice
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// Setări pentru EJS și foldere
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views', 'pages'));
 const staticPath = path.join(__dirname, 'src');
+app.use(express.static(staticPath));
 
 
 const indexRoutes = require('./routes/index');
 const shoppingCartRoutes = require('./routes/shoppingCart');
+const authRoutes = require('./routes/authentication');
 
-
-
-
-
-app.use(express.static(staticPath));
-// Routes
+const imageGenerationRoutes = require('./routes/openAi-image');
 app.use('/', indexRoutes);
-app.use('/', router);
+app.use('/', authRoutes);a
 app.use('/', shoppingCartRoutes);
+app.use('/api', imageGenerationRoutes);
 
 // Start server
 app.listen(PORT, () => {
