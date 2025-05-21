@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const router = require('./routes/authentication');
+
+
 const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,9 +26,9 @@ app.set('views', path.join(__dirname, 'views', 'pages'));
 const staticPath = path.join(__dirname, 'src');
 
 
-const indexRoutes = require('./routes/index');
-const shoppingCartRoutes = require('./routes/shoppingCart');
-
+const indexRoutes = require('./servers/routes/index');
+const shoppingCartRoutes = require('./servers/routes/shoppingCart');
+const authRoutes = require('./servers/routes/auths');
 
 
 
@@ -35,7 +36,7 @@ const shoppingCartRoutes = require('./routes/shoppingCart');
 app.use(express.static(staticPath));
 // Routes
 app.use('/', indexRoutes);
-app.use('/', router);
+app.use('/', authRoutes);
 app.use('/', shoppingCartRoutes);
 
 // Start server

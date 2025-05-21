@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: art_gallery
+
+      MYSQL_USER: marian
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+  index:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: index
+    ports:
+      - "3001:3000"
+    command: ["node", "IndexApp.js"]
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+  auth:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: auth
+    ports:
+      - "3002:3000"
+    command: ["node", "AuthApp.js"]
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+  cart:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: cart
+    ports:
+      - "3003:3000"
+    command: ["node", "CartApp.js"]
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+  nginx:
+    build: ./nginx
+    container_name: nginxProxy
+    ports:
+      - "80:80"
+    depends_on:
+      - index
+      - auth
+      - cart
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:
+    driver: bridge
