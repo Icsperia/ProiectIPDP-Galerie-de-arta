@@ -1,6 +1,6 @@
 const express = require('express');
 const { isAuthenticated } = require('./middleware');
-const{Art, Cart} = require('../models');
+const { Art, Cart } = require('../models');
 
 const router = express.Router();
 
@@ -10,7 +10,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/about', isAuthenticated, (req, res) => {
-    res.render('about', { user: req.user.user_name });
+    res.render('about', {
+        user: req.user.user_name,
+        session: req.session
+    });
 });
 
 async function renderArtByCategory(req, res, category, viewName, title) {
@@ -49,18 +52,30 @@ router.get('/watercolor', isAuthenticated, (req, res) => renderArtByCategory(req
 router.get('/portraits', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'portraits', 'portraits', 'Pencil Portraits'));
 router.get('/dress', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'dress', 'dress', 'Dress'));
 router.get('/random_draw', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'random_draw', 'random_draw', 'Random Draw'));
-
+router.get('/reacts', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'reacts', 'reacts', 'Reacts'));
 // Pagini statice
 router.get('/ai_art', isAuthenticated, (req, res) => {
-    res.render('ai_art', { title: 'AI art', user: req.user.user_name });
+    res.render('ai_art', {
+        title: 'AI art',
+        user: req.user.user_name,
+        session: req.session
+    });
 });
 
 router.get('/art', isAuthenticated, (req, res) => {
-    res.render('art', { title: 'Arta', user: req.user.user_name });
+    res.render('art', {
+        title: 'Arta',
+        user: req.user.user_name,
+        session: req.session
+    });
 });
 
 router.get('/artists', isAuthenticated, (req, res) => {
-    res.render('artists', { title: 'Artist', user: req.user.user_name });
+    res.render('artists', {
+        title: 'Artist',
+        user: req.user.user_name,
+        session: req.session
+    });
 });
 
 // Pagini artist
@@ -72,7 +87,8 @@ router.get('/bia', isAuthenticated, (req, res) => {
             bio: '....',
             profileImage: '/images/artist/bia.jpg'
         },
-        user: req.user.user_name
+        user: req.user.user_name,
+        session: req.session
     });
 });
 
@@ -101,6 +117,7 @@ router.get('/marian', isAuthenticated, (req, res) => {
         session: req.session
     });
 });
+/*
 router.get('/cart', isAuthenticated, async (req, res) => {
     try {
         const id_user = req.user.id;
@@ -114,7 +131,6 @@ router.get('/cart', isAuthenticated, async (req, res) => {
             }]
         });
 
-        // Map Sequelize results into plain objects with id_art included
         const items = cartItems.map(item => {
             const art = item.art;
             return {
@@ -127,23 +143,19 @@ router.get('/cart', isAuthenticated, async (req, res) => {
             };
         });
 
-        const transportCost = 20; // example shipping fee
+        const transportCost = 20;
 
         res.render('cart', {
             cartItems: items,
             success: req.query.success === '1',
             transportCost,
-            user: req.user.user_name
+            user: req.user.user_name,
+            session: req.session
         });
     } catch (err) {
         console.error('Error loading cart:', err);
         res.status(500).send('Eroare la afișarea coșului.');
     }
 });
-
-
-
-
+*/
 module.exports = router;
-
-

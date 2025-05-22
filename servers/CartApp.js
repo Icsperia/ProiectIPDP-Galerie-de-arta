@@ -1,8 +1,11 @@
+// AuthApp.js or CartApp.js
+const setupExpress = require('./SetupExpress');
+const routes = require( './routes/shoppingCart'); // or
 
-const setupExpress = require("./SetupExpress");
+const app = setupExpress('views/pages');
 
-const authRoutes = require("./routes/index");
-const app = setupExpress('./views/pages');
+app.use('/cart', routes);
 
-app.use('/', authRoutes);
-app.listen(3000, () => console.log('Auth app running'));
+app.listen(3000, () => {
+    console.log('App running on port 3000');
+});

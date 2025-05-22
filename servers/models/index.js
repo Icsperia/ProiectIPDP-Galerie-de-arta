@@ -1,24 +1,22 @@
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../DatabaseConnection');
-const { DataTypes } = require('sequelize');
 
-const Art = require('./Art')(sequelize, DataTypes);
-const Cart = require('./Cart')(sequelize, DataTypes);
-const Artist = require('./Artist')(sequelize, DataTypes);
-const Order = require('./Order')(sequelize, DataTypes);
-const User = require('./User'); // Dacă User e definit cu sequelize.define
+const db = {};
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+db.Art = require('./Art')(sequelize, DataTypes);
+db.Cart = require('./Cart')(sequelize, DataTypes);
+db.Artist = require('./Artist')(sequelize, DataTypes);
+db.Order = require('./Order')(sequelize, DataTypes);
+db.User = require('./User')(sequelize, DataTypes);
 
 // Relații
-Art.hasMany(Cart, { foreignKey: 'id_art', as: 'cartItems' });
-Cart.belongsTo(Art, { foreignKey: 'id_art', as: 'art' });
+db.Art.hasMany(db.Cart, { foreignKey: 'id_art', as: 'cartItems' });
+db.Cart.belongsTo(db.Art, { foreignKey: 'id_art', as: 'art' });
 
-Artist.hasMany(Art, { foreignKey: 'id_artist', as: 'lucrari' });
-Art.belongsTo(Artist, { foreignKey: 'id_artist', as: 'artist' });
+db.Artist.hasMany(db.Art, { foreignKey: 'id_artist', as: 'lucrari' });
+db.Art.belongsTo(db.Artist, { foreignKey: 'id_artist', as: 'artist' });
 
-module.exports = {
-    sequelize,
-    Art,
-    Cart,
-    Artist,
-    Order,
-    User
-};
+module.exports = db;

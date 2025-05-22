@@ -58,7 +58,8 @@
 <h1 id="pageTitle">Acrylic</h1>
 
 <a href="/cart" class="cart">
-    Cart (<span id="cart_count"><%= (session.cart && session.cart.length) || 0 %></span>)
+    Cart (<span id="cart_count"><%= session?.cart?.length || 0 %></span>)
+
 </a>
 
 
@@ -78,12 +79,10 @@
             <h3><%= lucrare.art_name %></h3>
             <p><%= lucrare.descriere %></p>
             <p class="price"><%= lucrare.pret %> RON</p>
-
-            <form action="/cart/add" method="post">
+            <form action="/cart/add" method="POST">
                 <input type="hidden" name="id_art" value="<%= lucrare.id_art %>">
-                <button class="addCart" type="submit">Add to Cart</button>
+                <button type="submit" class="addCart">Add to Cart</button>
             </form>
-
 
             <button class="generateBtn">Generate image</button>
         </div>

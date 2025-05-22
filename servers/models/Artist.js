@@ -1,5 +1,6 @@
-// models/Artist.js
 module.exports = (sequelize, DataTypes) => {
+
+
     return sequelize.define('Artist', {
         id_artist: {
             type: DataTypes.INTEGER,

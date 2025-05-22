@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "port": 8080,
+  "endpoints": [
+    {
+      "endpoint": "/cart",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "host": ["http://cart:3000"],
+          "url_pattern": "/cart"
+        }
+      ],
+      "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+          "alg": "HS256",
+          "secret": "SECRETKEY"
+        }
+      }
+    },
+    {
+      "endpoint": "/cart/add",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["http://cart:3000"],
+          "url_pattern": "/cart/add"
+        }
+      ],
+      "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+          "alg": "HS256",
+          "secret": "SECRETKEY"
+        }
+      }
+    },
+    {
+      "endpoint": "/cart/checkout",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["http://cart:3000"],
+          "url_pattern": "/cart"
+        }
+      ],
+      "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+          "alg": "HS256",
+          "secret": "SECRETKEY"
+        }
+      }
+    },
+    {
+      "endpoint": "/cart/delete",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["http://cart:3000"],
+          "url_pattern": "/cart/delete"
+        }
+      ],
+      "extra_config": {
+        "github.com/devopsfaith/krakend-jose/validator": {
+          "alg": "HS256",
+          "secret": "SECRETKEY"
+        }
+      }
+    }
+  ]
+}

@@ -594,39 +594,33 @@ document.addEventListener("click", async (event) => {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const buttons = document.querySelectorAll(".addCart");
+function addToCart(id_art) {
+    const token = getToken();
 
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-            const productId = button.getAttribute("data-id");
+    if (!token) {
+        alert('Trebuie să te autentifici!');
+        window.location.href = '/login';
+        return;
+    }
 
-            fetch("/add", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `productId=${productId}`
-            })
-                .then(() => {
-
-                    return fetch("/cart/count");
-                })
-                .then(res => res.json())
-                .then(data => {
-
-                    document.getElementById("cart_count").textContent = data.count;
-
-
-                    const toast = document.getElementById("toast");
-                    toast.classList.add("show");
-
-
-                    setTimeout(() => {
-                        toast.classList.remove("show");
-                    }, 3000);
-                })
-                .catch(err => console.error("Eroare:", err));
+    fetch('/cart/add', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_art, quantity: 1 })
+    })
+        .then(res => {
+            if (res.ok) {
+                alert('Produs adăugat în coș!');
+                location.reload();
+            } else {
+                res.text().then(msg => alert(`Eroare (${res.status}): ${msg}`));
+            }
+        })
+        .catch(err => {
+            console.error('Eroare de rețea:', err);
+            alert('Eroare de rețea: ' + err.message);
         });
-    });
-});
+}

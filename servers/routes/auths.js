@@ -2,11 +2,17 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { renderRegister, validateRegister } = require('./middleware');
-const User = require('../models/User');
+const { User } = require('../models');
 const { Op } = require('sequelize');
+
 const router = express.Router();
 
-// REGISTER
+// REGISTER GET
+router.get('/register', (req, res) => {
+    renderRegister(res);
+});
+
+// REGISTER POST
 router.post('/register', validateRegister, async (req, res) => {
     const { user_name, email, password, first_name, last_name } = req.body;
     try {
@@ -16,8 +22,10 @@ router.post('/register', validateRegister, async (req, res) => {
         if (await User.findOne({ where: { email } })) {
             return renderRegister(res, { emError: 'Email already exists' });
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({ user_name, email, password: hashedPassword, first_name, last_name, registered: new Date() });
+
         res.redirect('/login');
     } catch (err) {
         console.error(err);
@@ -25,56 +33,49 @@ router.post('/register', validateRegister, async (req, res) => {
     }
 });
 
-// LOGIN
+// LOGIN GET
+router.get('/login', (req, res) => {
+    res.render('login', { error: null });
+});
 
+// LOGIN POST
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({
-            where: { [Op.or]: [ { user_name: req.body.username }, { email: req.body.username } ] }
+            where: { [Op.or]: [{ user_name: req.body.username }, { email: req.body.username }] }
         });
+
         if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
             return res.render('login', { error: 'Invalid username or password' });
         }
 
-        const token = jwt.sign({ id: user.id, user_name: user.user_name }, 'SECRETKEY', { expiresIn: '7d' });
+        const token = jwt.sign(
+            { id: user.id, user_name: user.user_name },
+            'SECRETKEY',
+            { expiresIn: '7d' }
+        );
+
+
         user.last_login = new Date();
         await user.save();
+
         res.cookie('token', token, {
             httpOnly: true,
-            secure: false, // sau true dacă folosești HTTPS
-            maxAge: 3600000 // 1 oră
+            secure: false, // 🔁 în producție setează pe true
+            maxAge: 3600000
         });
+        res.render('after_login', { token }); // trimite JWT-ul către client
 
-
-        res.redirect('/about');
     } catch (err) {
         console.error('Login error:', err.message);
-        console.error(err.stack);
         res.status(500).send('Login failed');
     }
-
 });
 
+// LOGOUT
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     res.redirect('/');
 });
 
-
-router.get('/login', (req, res) => {
-    const error = req.query.error || null;
-    res.render('login', { error });
-});
-
-
-
-router.get('/register', (req, res) => {
-    res.render('register', {
-        unError: null,
-        emError: null,
-        passError: null,
-        passMatchError: null,
-        error: null
-    });
-});
 module.exports = router;
