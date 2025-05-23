@@ -71,6 +71,10 @@ function artist_menu(page) {
 function account_menu(page) {
     let title = document.getElementById("pageTitle");
     let content = document.getElementById("pageContent");
+    if (!title || !content) {
+
+        return;
+    }
 
     switch (page) {
         case 'log_in':
