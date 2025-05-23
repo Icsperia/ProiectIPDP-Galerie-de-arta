@@ -41,6 +41,13 @@ body {
     height: 60px;
     margin-right: 10px;
 }
+.logo1 {
+    text-align: center;
+}
+.logo1 img{
+    display: inline-block;
+    height: 150px;
+}
 .bullets{
     display: flex;
     align-items: center;
@@ -590,7 +597,6 @@ body {
     background: #f0f0f0;
     padding: 15px;
     margin-top: 15px;
-
 }
 
 /*****************infinite-pallete_logo******************/
@@ -635,7 +641,25 @@ body {
 .show:hover {
     opacity: 0.8;
 }
-
+.show1 {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    outline: 0;
+    margin-top: 20px;
+    margin-left: 200px;
+    padding: 12px 20px;
+    color: white;
+    background-color: #1e90ff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+.show1:hover {
+    opacity: 0.8;
+}
 /*****************link******************/
 .link{
     color: #555;
@@ -769,4 +793,77 @@ body {
 
 .cos-container .Message a:hover {
     text-decoration: underline;
+}
+/*****************welcome_page******************/
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 180px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+#upload-section {
+    background: white;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#generatedResult img {
+    margin-top: 10px;
+    max-width: 400px;
+    height: auto;
+    border: 1px solid #888;
+    border-radius: 8px;
+}
+
+.file_upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.file_upload input[type="file"] {
+    display: none;
+}
+
+#fileName {
+    font-size: 14px;
+    color: #555;
+}
+.ai_btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.ai_btn:hover {
+    background-color: #0056b3;
 }

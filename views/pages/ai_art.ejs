@@ -49,6 +49,21 @@
     <p id="pageContent"></p>
 </div>
 
+<div id="upload-section">
+    <h2>Upload and Generate Image Variation</h2>
+
+    <div class="file_upload">
+        <label for="imageUpload" class="ai_btn">Upload Image</label>
+        <input type="file" id="imageUpload" accept="image/*">
+        <span id="fileName">No file chosen</span>
+    </div>
+
+    <button id="generateFromUpload" class="ai_btn">Generate image</button>
+
+    <div id="generatedResult"></div>
+
+</div>
+
 <script src="/script.js"></script>
 <script src="/routes/authentication.js"></script>
 </body>

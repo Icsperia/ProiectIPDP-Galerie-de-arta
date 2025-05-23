@@ -8,6 +8,11 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     const error = req.query.error || null;
+    res.render('welcome', { error });
+});
+
+router.get('/login', (req, res) => {
+    const error = req.query.error || null;
     res.render('login', { error });
 });
 
@@ -107,7 +112,7 @@ router.get('/artists', isAuthenticated, (req, res) => {
 router.get('/bia', isAuthenticated, (req, res) => {
     const artistInfo = {
         name: 'Bianca Husu',
-        bio: '....',
+        bio: 'I am a student at the "Faculty of Electrical Engineering and Computer Science," specializing in "Computer Science." I chose this eld for the creativity allowed in programming, but I have also started to discover the beauty of electronics. I have good communication skills, I am an energetic and creative person who enjoys trying new things. I am passsionate I am passionate about drawing in many forms, I like trying new techniques and combining colors.',
         profileImage: '/images/artist/bia.jpg'
     };
 
@@ -147,7 +152,7 @@ router.get('/dress', isAuthenticated, (req, res) => {
 router.get('/georgi', isAuthenticated, (req, res) => {
     const artistInfo = {
         name: 'Georgiana Sanda',
-        bio: '....',
+        bio: 'I am a student at Transilvania University Faculty of Electrical Engineering and Computer Science, Department of Computers. I quickly adapt to new situations and tasks. I enjoy hiking, cycling, spending time with loved ones playing board games, exploring new places cooking, and going to the movies. In my free time, I enjoy working with technology and learning new things.',
         profileImage: '/images/artist/georgi.jpg'
     };
 

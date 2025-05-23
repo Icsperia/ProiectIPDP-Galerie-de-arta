@@ -23,6 +23,7 @@ app.use(cookieParser());
 // Setări pentru EJS și foldere
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views', 'pages'));
+
 const staticPath = path.join(__dirname, 'src');
 app.use(express.static(staticPath));
 
