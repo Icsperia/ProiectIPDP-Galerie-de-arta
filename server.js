@@ -3,18 +3,14 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
+const router = require('./routes/authentication');
 
-const session = require('express-session');
+
+const indexRoutes = require('./routes/index');
+const imageRoutes = require('./routes/image');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(session({
-    secret: '1234567890abcdefghijklmnopqrstuvwxyz',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
-}));
-
-
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,19 +21,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views', 'pages'));
 const staticPath = path.join(__dirname, 'src');
 
-
-const indexRoutes = require('./servers/routes/index');
-const shoppingCartRoutes = require('./servers/routes/shoppingCart');
-const authRoutes = require('./servers/routes/auths');
-
-
-
-
 app.use(express.static(staticPath));
 // Routes
 app.use('/', indexRoutes);
-app.use('/', authRoutes);
-app.use('/', shoppingCartRoutes);
+app.use('/', imageRoutes);
+app.use('/', router);
 
 // Start server
 app.listen(PORT, () => {
