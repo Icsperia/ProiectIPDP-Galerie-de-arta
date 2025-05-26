@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize('art_gallery', 'marian', '1234', {
-    host: 'mysql_db', // folosește numele serviciului
+    host: 'mysql_db',
     dialect: 'mysql',
     port: 3306,
     logging: false

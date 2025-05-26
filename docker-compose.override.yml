@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  auth1:
+    command: [
+      "clinic", "doctor",
+      "--autocannon", "-m", "POST", "http://localhost:3000/auth/login",
+      "--stop-delay", "2000",
+      "--open", "false",
+      "--", "node", "AuthApp.js"
+    ]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./clinic-results:/app/.clinic

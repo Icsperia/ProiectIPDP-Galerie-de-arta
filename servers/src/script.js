@@ -412,7 +412,7 @@ function displayProducts(products) {
         addButton.addEventListener("click", function (event) {
             event.stopPropagation();
             selectedProduct = product;
-            addToCart();
+            addToCart(product.id);
         });
 
         productDiv.appendChild(title);
@@ -623,4 +623,12 @@ function addToCart(id_art) {
             console.error('Eroare de rețea:', err);
             alert('Eroare de rețea: ' + err.message);
         });
+}
+
+function getToken() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.warn("⚠️ Token not found in localStorage.");
+    }
+    return token;
 }

@@ -14,18 +14,6 @@ services:
     networks:
       - backend
 
-
-  krakend:
-    image: devopsfaith/krakend
-    container_name: krakend
-    volumes:
-      - ./krakend:/etc/krakend
-    ports:
-      - "8080:8080"
-    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
-    networks:
-      - backend
-
   redis:
     image: redis:alpine
     container_name: redis
@@ -34,13 +22,11 @@ services:
     networks:
       - backend
 
-  index:
+  index1:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: index
-    ports:
-      - "3001:3000"
+    container_name: index1
     command: ["node", "IndexApp.js"]
     depends_on:
       - mysql
@@ -48,13 +34,23 @@ services:
     networks:
       - backend
 
-  auth:
+  index2:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: auth
-    ports:
-      - "3002:3000"
+    container_name: index2
+    command: ["node", "IndexApp.js"]
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - backend
+
+  auth1:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: auth1
     command: ["node", "AuthApp.js"]
     depends_on:
       - mysql
@@ -62,13 +58,35 @@ services:
     networks:
       - backend
 
-  cart:
+  auth2:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: cart
-    ports:
-      - "3003:3000"
+    container_name: auth2
+    command: ["node", "AuthApp.js"]
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - backend
+
+  cart1:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: cart1
+    command: ["node", "CartApp.js"]
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - backend
+
+  cart2:
+    build:
+      context: ./servers
+      dockerfile: Dockerfile
+    container_name: cart2
     command: ["node", "CartApp.js"]
     depends_on:
       - mysql
@@ -82,9 +100,9 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - index
-      - auth
-      - cart
+      - index1
+      - auth1
+      - cart1
     networks:
       - backend
 
