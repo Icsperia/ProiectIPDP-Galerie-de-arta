@@ -1,16 +1,14 @@
-import express from 'express';
-import multer from 'multer';
-import axios from 'axios';
-import fs from 'fs';
-import FormData from 'form-data';
-import dotenv from 'dotenv';
-
-dotenv.config();
+const express = require('express');
+const multer = require('multer');
+const axios = require('axios');
+const fs = require('fs');
+const FormData = require('form-data');
+require('dotenv').config();
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/api/generate-variation', upload.single('image'), async (req, res) => {
+router.post('/generate-variation', upload.single('image'), async (req, res) => {
     try {
         const imagePath = req.file.path;
 
@@ -26,7 +24,7 @@ router.post('/api/generate-variation', upload.single('image'), async (req, res) 
             }
         });
 
-        fs.unlinkSync(imagePath); // stergem imaginea temporara
+        fs.unlinkSync(imagePath);
 
         const imageUrl = response.data.data[0].url;
         res.json({ imageUrl });
@@ -36,4 +34,4 @@ router.post('/api/generate-variation', upload.single('image'), async (req, res) 
     }
 });
 
-export default router;
+module.exports = router;

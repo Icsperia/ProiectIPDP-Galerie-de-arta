@@ -35,5 +35,8 @@
     "sequelize": "^6.37.7",
     "serve-favicon": "^2.5.0",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
   }
 }
