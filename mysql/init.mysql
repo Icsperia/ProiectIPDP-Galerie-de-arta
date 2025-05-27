@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS art_gallery;
+CREATE DATABASE art_gallery;
+
+DROP USER IF EXISTS 'marian'@'%';
+DROP USER IF EXISTS 'marian'@'localhost';
+
+CREATE USER 'marian'@'%' IDENTIFIED BY '1234';
+CREATE USER 'marian'@'localhost' IDENTIFIED BY '1234';
+
+GRANT ALL PRIVILEGES ON art_gallery.* TO 'marian'@'%';
+GRANT ALL PRIVILEGES ON art_gallery.* TO 'marian'@'localhost';
+
+FLUSH PRIVILEGES;

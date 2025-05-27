@@ -41,6 +41,13 @@ body {
     height: 60px;
     margin-right: 10px;
 }
+.logo1 {
+    text-align: center;
+}
+.logo1 img{
+    display: inline-block;
+    height: 150px;
+}
 .bullets{
     display: flex;
     align-items: center;
@@ -636,6 +643,27 @@ body {
     opacity: 0.8;
 }
 
+.show1 {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    outline: 0;
+    margin-top: 20px;
+    margin-left: 200px;
+    padding: 12px 20px;
+    color: white;
+    background-color: #1e90ff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+.show1:hover {
+    opacity: 0.8;
+}
+=======
+
 /*****************link******************/
 .link{
     color: #555;
@@ -679,3 +707,169 @@ body {
 .reaction-box button:hover {
     opacity: 0.8;
 }
+
+/*****************cart******************/
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    margin-right: 300px;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 9999;
+    font-size: 16px;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+
+}
+
+.cos-container {
+    background: white;
+    padding: 30px;
+    margin-left: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
+
+.cos-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 26px;
+}
+
+.cos-container input[type="text"],
+.cos-container input[type="first_name"],
+.cos-container input[type="last_name"],
+.cos-container input[type="email"],
+.cos-container input[type="str"],
+.cos-container input[type="judet"],
+.cos-container input[type="oras"],
+.cos-container input[type="tele"]
+{
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Audiowide', cursive;
+    font-size: 15px;
+}
+
+.cos-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Audiowide', cursive;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.cos-container button:hover {
+    background-color: #444;
+}
+
+.cos-container .Message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.cos-container .Message a {
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+.cos-container .Message a:hover {
+    text-decoration: underline;
+}
+/*****************welcome_page******************/
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 180px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+#upload-section {
+    background: white;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#generatedResult img {
+    margin-top: 10px;
+    max-width: 400px;
+    height: auto;
+    border: 1px solid #888;
+    border-radius: 8px;
+}
+
+.file_upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.file_upload input[type="file"] {
+    display: none;
+}
+
+#fileName {
+    font-size: 14px;
+    color: #555;
+}
+.ai_btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.ai_btn:hover {
+    background-color: #0056b3;
+}
+
+

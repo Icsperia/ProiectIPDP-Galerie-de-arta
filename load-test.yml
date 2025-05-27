@@ -1,0 +1,34 @@
+config:
+  target: "http://localhost"
+  phases:
+    - duration: 60
+      arrivalRate: 30
+
+scenarios:
+  - name: Register
+    flow:
+      - post:
+          url: "/auth/register"
+          headers:
+            accept: application/json
+          json:
+            email: "load+{{ $randomInt(1, 100000) }}@example.com"
+            password: "123456"
+            user_name: "user{{ $randomInt(1, 100000) }}"
+            first_name: "Test"
+            last_name: "Bot"
+
+  - name: Login
+    flow:
+      - post:
+          url: "/auth/login"
+          headers:
+            accept: application/json
+          json:
+            username: "testuser"
+            password: "123456"
+
+  - name: Cart
+    flow:
+      - get:
+          url: "/cart"

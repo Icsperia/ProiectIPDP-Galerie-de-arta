@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS art_gallery;
+
+CREATE USER IF NOT EXISTS 'marian'@'%' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'marian'@'localhost' IDENTIFIED BY '1234';
+
+GRANT ALL PRIVILEGES ON art_gallery.* TO 'marian'@'%';
+GRANT ALL PRIVILEGES ON art_gallery.* TO 'marian'@'localhost';
+FLUSH PRIVILEGES;

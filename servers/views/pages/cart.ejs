@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shopping Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h1>Shopping Cart</h1>
+<% if (success) { %>
+    <div class="success-message" style="color: green; font-weight: bold; margin-bottom: 1em;">
+        ✅ Comanda a fost plasată cu succes!
+    </div>
+<% } %>
+<% if (cartItems.length === 0) { %>
+    <p>Coșul tău este gol.</p>
+<% } else { %>
+    <table>
+        <thead>
+        <tr>
+            <th>Imagine</th>
+            <th>Nume</th>
+            <th>Cantitate</th>
+            <th>Preț unitar</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% let total = 0; %>
+        <% cartItems.forEach(item => { %>
+            <tr>
+                <td>
+                    <% if (item.imagini && item.imagini.length > 0) { %>
+                        <img src="<%= item.imagini[0] %>" alt="<%= item.art_name %>" style="width: 80px;">
+                    <% } %>
+                </td>
+                <td><%= item.art_name %></td>
+                <td><%= item.quantity %></td>
+                <td>
+                    <%= typeof item.pret === 'number' ? item.pret.toFixed(2) + ' RON' : 'N/A' %>
+                </td>
+                <td>
+                    <%= typeof item.pret === 'number' ? (item.pret * item.quantity).toFixed(2) + ' RON' : 'N/A' %>
+                </td>
+                <% if (typeof item.pret === 'number') total += item.pret * item.quantity; %>
+                <td>
+                    <form action="/cart/delete" method="POST" style="display:inline;">
+
+                    <input type="hidden" name="id_art" value="<%= item.id_art %>">
+                        <button type="submit">Șterge</button>
+                    </form>
+                </td>
+
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+
+    <h3>Cost transport: <%= transportCost.toFixed(2) %> RON</h3>
+    <h2>Total final: <%= (total + transportCost).toFixed(2) %> RON</h2>
+
+    <h2>Finalizează comanda</h2>
+    <form action="/cart" method="post">
+        <input type="text" name="first_name" placeholder="Prenume" required>
+        <input type="text" name="last_name" placeholder="Nume" required>
+        <input type="text" name="judet" placeholder="Județ" required>
+        <input type="text" name="oras" placeholder="Oraș" required>
+        <input type="text" name="str" placeholder="Stradă" required>
+        <input type="text" name="tele" placeholder="Telefon" required>
+        <button type="submit">Plasează comanda</button>
+    </form>
+<% } %>
+
+<a href="/art">Înapoi la galerie</a>
+
+</body>
+</html>

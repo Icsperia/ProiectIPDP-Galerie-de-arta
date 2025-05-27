@@ -55,7 +55,7 @@ function artist_menu(page) {
     switch (page) {
         case '1':
             title.innerText = "Artist 1";
-            break; 
+            break;
         case '2':
             title.innerText = "Artist 2";
             break;
@@ -71,11 +71,15 @@ function artist_menu(page) {
 function account_menu(page) {
     let title = document.getElementById("pageTitle");
     let content = document.getElementById("pageContent");
+    if (!title || !content) {
+
+        return;
+    }
 
     switch (page) {
         case 'log_in':
             title.innerText = "Log in";
-            break; 
+            break;
         case 'sing_in':
             title.innerText = "Sign in";
             break;
@@ -385,7 +389,7 @@ let cart = [];
 let selectedProduct = null;
 let currentImageIndex = 0;
 
-
+/*
 function displayProducts(products) {
     var productList = document.getElementById("productList");
     productList.innerHTML = "";
@@ -467,7 +471,6 @@ function viewProduct(id, product) {
     };
 }
 
-
 function prevImage(){
     if(currentImageIndex > 0){
         currentImageIndex --;
@@ -498,7 +501,6 @@ function displayThumbnails(){
         thumbnailContainer.appendChild(thumb);
     });
 }
-
 function changeImage(index){
     currentImageIndex = index;
     updateMainImage();
@@ -512,20 +514,14 @@ function addToCart(){
     document.getElementById("product_details").style.display = "none";
     document.getElementById("productList").style.display = "block";
 }
+*/
 
 function showCart(){
     var cartItems = cart.map(function (p){ return p.name; }).join(", ");
     alert("Products" + cartItems);
 }
 
-function simulateAnchorClick(href) {
-    const a = document.createElement('a');
-    a.href = href;
-    a.click();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Rotație imagini activată");
 
     const rotators = document.querySelectorAll(".rotating-image");
 
@@ -587,6 +583,13 @@ document.addEventListener("click", async (event) => {
                 canvas.height = newHeight;
                 ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
 
+
+
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
+
+
                 blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
             }
 
@@ -615,4 +618,116 @@ document.addEventListener("click", async (event) => {
     }
 });
 
+//***************************add_to_cart******************************
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".addCart");
 
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = button.getAttribute("data-id");
+
+            fetch("/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `productId=${productId}`
+            })
+                .then(() => {
+
+                    return fetch("/cart/count");
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    document.getElementById("cart_count").textContent = data.count;
+
+
+                    const toast = document.getElementById("toast");
+                    toast.classList.add("show");
+
+
+                    setTimeout(() => {
+                        toast.classList.remove("show");
+                    }, 3000);
+                })
+                .catch(err => console.error("Eroare:", err));
+        });
+    });
+});
+
+//***************************generare_upload******************************
+document.getElementById("generateFromUpload").addEventListener("click", async () => {
+    const fileInput = document.getElementById("imageUpload");
+    const result = document.getElementById("generatedResult");
+
+    if (!fileInput.files.length) {
+        alert("Please upload an image first.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    const button = document.getElementById("generateFromUpload");
+    button.disabled = true;
+    button.textContent = "Generating...";
+
+    try {
+        const imageElement = new Image();
+        imageElement.crossOrigin = "anonymous";
+        imageElement.src = URL.createObjectURL(file);
+
+        await new Promise((resolve, reject) => {
+            imageElement.onload = resolve;
+            imageElement.onerror = reject;
+        });
+
+        const canvas = document.createElement("canvas");
+        canvas.width = imageElement.width;
+        canvas.height = imageElement.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(imageElement, 0, 0);
+
+        let blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+
+        while (blob.size > 4 * 1024 * 1024) {
+            const scaleFactor = Math.sqrt((4 * 1024 * 1024) / blob.size);
+            const newWidth = Math.floor(canvas.width * scaleFactor);
+            const newHeight = Math.floor(canvas.height * scaleFactor);
+
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
+
+            blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        }
+
+        const formData = new FormData();
+        formData.append("image", blob, "uploaded_image.png");
+
+        const response = await fetch("/api/generate-variation", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.imageUrl) {
+            result.innerHTML = '<img src="' + data.imageUrl + '" alt="Generated Image" class="generated-image">';
+        } else {
+            result.innerHTML = '<p style="color:red;">Error: ' + (data.error || "Unknown error") + '</p>';
+        }
+    } catch (error) {
+        console.error("Error during image generation:", error);
+        result.innerHTML = '<p style="color:red;">An error occurred while generating the image.</p>';
+    } finally {
+        button.disabled = false;
+        button.textContent = "Generate image";
+    }
+});
+
+//***************************upload_file******************************
+document.getElementById("imageUpload").addEventListener("change", function () {
+    const fileName = this.files[0] ? this.files[0].name : "No file chosen";
+    document.getElementById("fileName").textContent = fileName;
+});
