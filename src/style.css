@@ -597,6 +597,7 @@ body {
     background: #f0f0f0;
     padding: 15px;
     margin-top: 15px;
+
 }
 
 /*****************infinite-pallete_logo******************/
@@ -641,6 +642,7 @@ body {
 .show:hover {
     opacity: 0.8;
 }
+
 .show1 {
     display: inline-block;
     text-decoration: none;
@@ -660,6 +662,8 @@ body {
 .show1:hover {
     opacity: 0.8;
 }
+=======
+
 /*****************link******************/
 .link{
     color: #555;
@@ -867,3 +871,5 @@ body {
 .ai_btn:hover {
     background-color: #0056b3;
 }
+
+

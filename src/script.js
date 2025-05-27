@@ -583,6 +583,13 @@ document.addEventListener("click", async (event) => {
                 canvas.height = newHeight;
                 ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
 
+
+
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+                ctx.drawImage(imageElement, 0, 0, newWidth, newHeight);
+
+
                 blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
             }
 
