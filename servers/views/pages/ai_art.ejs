@@ -20,7 +20,7 @@
             <a href="/portraits" onclick="arts_menu('portraits')">Pencil portraits</a>
             <a href="/acrylic" onclick="arts_menu('acrylic')">Acrylic paintings</a>
             <a href="/watercolor" onclick="arts_menu('watercolor')">Watercolor paintings</a>
-            <a href="/draw" onclick="arts_menu('draw')">Drawings</a>
+            <a href="/dress" onclick="arts_menu('dress')">Drawings</a>
             <a href="/random_draw" onclick="arts_menu('random_draw')">Random drawings</a>
         </div>
     </div>
@@ -34,14 +34,19 @@
     </div>
     <a href="/reacts" onclick="showContent('reacts')">Reacts</a>
     <a href="/ai_art" onclick="showContent('ai')">AI Art</a>
+    <a  href="/cart" class="cart">Cart (<span id="cart_count"><%= session?.cart?.length || 0 %></span>)</a>
 
     <div class="dropdown">
         <div class="submenu">
-            <a href="/auth/logout" id="logoutBtn">Logout</a>
+            <a window.location.href="/register" onclick="account_menu('register')">Register</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
+
         </div>
         <p class="greeting">Hello, <%= user %>!</p>
+
     </div>
+
+
 </div>
 
 <div id="main">
@@ -49,7 +54,22 @@
     <p id="pageContent"></p>
 </div>
 
+<div id="upload-section">
+    <h2>Upload and Generate Image Variation</h2>
+
+    <div class="file_upload">
+        <label for="imageUpload" class="ai_btn">Upload Image</label>
+        <input type="file" id="imageUpload" accept="image/*">
+        <span id="fileName">No file chosen</span>
+    </div>
+
+    <button id="generateFromUpload" class="ai_btn">Generate image</button>
+
+    <div id="generatedResult"></div>
+
+</div>
+
 <script src="/script.js"></script>
-<script src="/servers/routes/auths.js"></script>
+<script src="/routes/authentication.js"></script>
 </body>
 </html>

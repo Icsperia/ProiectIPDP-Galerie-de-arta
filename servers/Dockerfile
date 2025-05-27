@@ -12,7 +12,7 @@ COPY ./routes ./routes
 COPY ./models ./models
 COPY ./views/pages ./views/pages
 COPY ./src ./src
-
+COPY ./tests ./tests
 COPY AuthApp.js .
 COPY IndexApp.js .
 COPY CartApp.js .

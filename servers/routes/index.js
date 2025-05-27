@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     const error = req.query.error || null;
-    res.render('login', { error });
+    res.render('welcome', { error });
 });
 
 router.get('/about', isAuthenticated, (req, res) => {
@@ -53,6 +53,12 @@ router.get('/portraits', isAuthenticated, (req, res) => renderArtByCategory(req,
 router.get('/dress', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'dress', 'dress', 'Dress'));
 router.get('/random_draw', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'random_draw', 'random_draw', 'Random Draw'));
 router.get('/reacts', isAuthenticated, (req, res) => renderArtByCategory(req, res, 'reacts', 'reacts', 'Reacts'));
+router.get('/welcome' , (req, res)=>{
+
+    res.render('welcome')
+
+})
+
 // Pagini statice
 router.get('/ai_art', isAuthenticated, (req, res) => {
     res.render('ai_art', {

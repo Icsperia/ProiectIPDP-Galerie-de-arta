@@ -20,7 +20,7 @@
             <a href="/portraits" onclick="arts_menu('portraits')">Pencil portraits</a>
             <a href="/acrylic" onclick="arts_menu('acrylic')">Acrylic paintings</a>
             <a href="/watercolor" onclick="arts_menu('watercolor')">Watercolor paintings</a>
-            <a href="/draw" onclick="arts_menu('draw')">Drawings</a>
+            <a href="/dress" onclick="arts_menu('dress')">Drawings</a>
             <a href="/random_draw" onclick="arts_menu('random_draw')">Random drawings</a>
         </div>
     </div>
@@ -37,19 +37,34 @@
 
     <div class="dropdown">
         <div class="submenu">
-            <a href="/auth/logout" id="logoutBtn">Logout</a>
+            <a window.location.href="/register" onclick="account_menu('register')">Register</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
         <p class="greeting">Hello, <%= user %>!</p>
     </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="handleSearch()">Search</button>
+    </div>
 </div>
+
+<a  href="/cart" class="cart">Cart (<span id="cart_count"><%= session?.cart?.length || 0 %></span>)</a>
+
+<h1 id="text_logo">Infinite pallete</h1>
+<h1 id="page"> ~ our art ~ </h1>
 
 <div id="main">
-    <h1 id="pageTitle">Art page</h1>
-    <p id="pageContent"></p>
-</div>
+    <a class="show" href="/portraits" >Pencil portraits</a>
 
+    <a class="show" href="/acrylic" >Acrylic paintings</a>
+
+    <a class="show" href="/watercolor" >Watercolor paintings</a>
+
+    <a class="show" href="/dress" >Dress sketches</a>
+
+    <a class="show" href="/random_draw" >Random stuff</a>
+</div>
 <script src="/script.js"></script>
-<script src="/servers/routes/auths.js"></script>
+<script src="/routes/authentication.js"></script>
 </body>
 </html>

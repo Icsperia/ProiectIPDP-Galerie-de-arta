@@ -40,10 +40,11 @@
 
     <div class="dropdown">
         <div class="submenu">
-            <a href="/auth/logout" id="logoutBtn">Logout</a>
+            <a window.location.href="/auth/logout" onclick="account_menu('register')">Logout</a>
             <a href="#" onclick="account_menu('condition')">Conditions</a>
         </div>
         <p class="greeting">Hello, <%= user %>!</p>
+        <a  href="/cart" class="cart">Cart (<span id="cart_count"><%= session?.cart?.length || 0 %></span>)</a>
     </div>
 
     <div class="search-container">
@@ -53,9 +54,9 @@
 </div>
 
 <h1 id="pageTitle">Pencil portraits</h1>
-<a href="/cart" class="cart">
-    Cart (<span id="cart_count"><%= (session.cart && session.cart.length) || 0 %></span>)
-</a>
+
+
+
 <div class="product-container">
     <% lucrari.forEach(function(lucrare) {
         const imagini = lucrare.imagini || [];
@@ -72,10 +73,9 @@
             <p><%= lucrare.descriere %></p>
             <p class="price"><%= lucrare.pret %> RON</p>
 
-
-            <form action="/cart/add" method="post">
-                <input type="hidden" name="id_art" value="<%= lucrare.id_art %>">
-                <button class="addCart" type="submit">Add to Cart</button>
+            <form action="/cart/add" method="POST">
+                <input type="hidden" name="productId" value="<%= lucrare.id_art %>">
+                <button type="submit" class="addCart">Add to Cart</button>
             </form>
 
             <button class="generateBtn">Generate image</button>
@@ -86,6 +86,7 @@
 </div>
 
 
+<a href="/cart">Go to Cart</a>
 
 <script src="/script.js"></script>
 </body>
