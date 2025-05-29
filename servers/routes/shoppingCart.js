@@ -5,8 +5,7 @@ const { Cart, Order, Art} = require('../models');
 
 const router = express.Router();
 
-// Adaugă în coș
-// Adaugă produs în coș – metoda POST pe baza body
+
 router.post('/add', isAuthenticated, async (req, res) => {
     const id_art = parseInt(req.body.id_art, 10);
     const quantity = parseInt(req.body.quantity || 1, 10);
@@ -35,7 +34,7 @@ router.post('/add', isAuthenticated, async (req, res) => {
 
 
 
-// Checkout
+
 router.get('/', isAuthenticated, async (req, res) => {
     const id_user = req.user.id;
     const transportCost = 20.00;

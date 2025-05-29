@@ -26,7 +26,7 @@ async function connectWithRetry(retries = 10, delay = 5000) {
         process.exit(1);
     }
 }
-sequelize.sync({ alter: true })
+sequelize.sync({  })
     .then(() => console.log("✅ Tables synced"))
     .catch((err) => console.error("❌ Sync error", err));
 

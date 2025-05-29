@@ -65,20 +65,20 @@ router.post('/login', async (req, res) => {
         user.last_login = new Date();
         await user.save();
 
-        // Dacă vine dintr-un fetch()
+
         if (req.headers.accept.includes('application/json')) {
             return res.json({ token });
         }
 
-        // Dacă e form HTML normal (fallback)
+
         res.cookie('token', token, {
             httpOnly: true,
             secure: false,
             maxAge: 3600000
         });
 
-        // Trimite pagina HTML (nu va funcționa pentru Krakend)
-        return res.render('after_login', { token }); // Asta trebuie completată cu JS (vezi mai jos)
+
+        return res.render('after_login', { token });
 
     } catch (err) {
         console.error('Login error:', err.message);

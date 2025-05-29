@@ -5,7 +5,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Instalăm global clinic + autocannon pentru profiling
 RUN npm install -g clinic autocannon
 
 COPY ./routes ./routes

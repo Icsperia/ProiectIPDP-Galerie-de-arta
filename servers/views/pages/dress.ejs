@@ -73,10 +73,11 @@
             <p><%= lucrare.descriere %></p>
             <p class="price"><%= lucrare.pret %> RON</p>
 
-            <form action="/add-to-cart" method="POST">
-                <input type="hidden" name="productId" value="<%= lucrare.id_art %>">
+            <form action="/cart/add" method="POST">
+                <input type="hidden" name="id_art" value="<%= lucrare.id_art %>">
                 <button type="submit" class="addCart">Add to Cart</button>
             </form>
+
 
             <button class="generateBtn">Generate image</button>
         </div>
