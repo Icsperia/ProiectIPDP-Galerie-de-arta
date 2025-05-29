@@ -1,14 +1,10 @@
 version: "3.8"
 
 services:
-  mysql:
+  mysql_db:
     image: mysql:8.0.41-oracle
-    container_name: mysql_db
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -16,99 +12,54 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: redis
-    ports:
-      - "6379:6379"
     networks:
       - backend
 
-  index1:
+  index:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: index1
     command: ["node", "IndexApp.js"]
-    depends_on:
-      - mysql
-      - redis
     networks:
       - backend
+    deploy:
+      replicas: 2
 
-  index2:
+  auth:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: index2
-    command: ["node", "IndexApp.js"]
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - backend
-
-  auth1:
-    build:
-      context: ./servers
-      dockerfile: Dockerfile
-    container_name: auth1
     command: ["node", "AuthApp.js"]
-    depends_on:
-      - mysql
-      - redis
     networks:
       - backend
+    deploy:
+      replicas: 2
 
-  auth2:
+  cart:
     build:
       context: ./servers
       dockerfile: Dockerfile
-    container_name: auth2
-    command: ["node", "AuthApp.js"]
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - backend
-
-  cart1:
-    build:
-      context: ./servers
-      dockerfile: Dockerfile
-    container_name: cart1
     command: ["node", "CartApp.js"]
-    depends_on:
-      - mysql
-      - redis
     networks:
       - backend
-
-  cart2:
-    build:
-      context: ./servers
-      dockerfile: Dockerfile
-    container_name: cart2
-    command: ["node", "CartApp.js"]
-    depends_on:
-      - mysql
-      - redis
-    networks:
-      - backend
+    deploy:
+      replicas: 2
 
   nginx:
     build: ./nginx
-    container_name: nginxProxy
     ports:
       - "80:80"
-    depends_on:
-      - index1
-      - auth1
-      - cart1
     networks:
       - backend
+    depends_on:
+      - index
+      - auth
+      - cart
+    deploy:
+      replicas: 2
 
 volumes:
   mysql_data:
 
 networks:
   backend:
-    driver: bridge
