@@ -40,7 +40,7 @@ async function renderArtByCategory(req, res, category, viewName, title) {
             session: req.session
         });
     } catch (err) {
-        console.error(`❌ Eroare la interogarea pentru ${category}:`, err.message);
+        console.error(` Eroare la interogarea pentru ${category}:`, err.message);
         console.error(err.stack);
         res.status(500).send('Eroare la interogarea bazei de date');
     }
@@ -59,7 +59,7 @@ router.get('/welcome' , (req, res)=>{
 
 })
 
-// Pagini statice
+
 router.get('/ai_art', isAuthenticated, (req, res) => {
     res.render('ai_art', {
         title: 'AI art',
@@ -84,7 +84,7 @@ router.get('/artists', isAuthenticated, (req, res) => {
     });
 });
 
-// Pagini artist
+
 router.get('/bia', isAuthenticated, (req, res) => {
     res.render('bia', {
         title: 'About Bianca Husu',
